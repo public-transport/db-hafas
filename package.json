@@ -9,5 +9,9 @@
 	"homepage":          "https://github.com/derhuerst/db-hafas",
 	"repository":        "git://github.com/derhuerst/db-hafas.git",
 	"license":           "ISC",
-	"engines":           {"node": ">=5"}
+	"engines":           {"node": ">=5"},
+	"dependencies": {
+		"extend":          "^3",
+		"request-promise": "^2.0.1"
+	}
 }
