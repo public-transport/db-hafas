@@ -1,0 +1,13 @@
+{
+	"name":              "db-hafas",
+	"description":       "Client for the Deutsche Bahn schedule API.",
+	"version":           "0.1.0",
+	"main":              "index.js",
+	"files":             ["index.js", "readme.md"],
+	"keywords":          ["db", "deutsche bahn", "api", "hafas", "rest", "client"],
+	"author":            "Jannis R <mail@jannisr.de>",
+	"homepage":          "https://github.com/derhuerst/db-hafas",
+	"repository":        "git://github.com/derhuerst/db-hafas.git",
+	"license":           "ISC",
+	"engines":           {"node": ">=5"}
+}
