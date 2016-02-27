@@ -32,9 +32,11 @@ const client = function (apiKey) {
 				try { return JSON.parse(response) }
 				catch (e) { return {} }
 			})
-			.then((response) =>
-				'LocationList' in response && 'StopLocation' in response.LocationList ?
-				response.LocationList.StopLocation : []
+			.then((res) =>
+				('LocationList' in res && 'StopLocation' in res.LocationList) ?
+				(Array.isArray(res.LocationList.StopLocation)
+				? res.LocationList.StopLocation : [res.LocationList.StopLocation])
+				: []
 			)
 			.then((stations) => stations.map((station) => ({
 				id:        station.id,
