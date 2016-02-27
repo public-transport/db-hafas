@@ -48,3 +48,10 @@ module.exports =
 				test.strictEqual requestMock.callCount, 1
 				test.strictEqual url.parse(requestMock.firstCall.args[0]).pathname, '/bin/rest.exe/location.name'
 				test.done()
+
+		'handles errors correctly': (test) ->
+			requestMock.resolves JSON.stringify LocationList: errorCode: 123, errorText: 'bar'
+			client.locations('baz').catch (err) ->
+				test.strictEqual err.code,    123
+				test.strictEqual err.message, 'bar'
+				test.done()
