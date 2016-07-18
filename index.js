@@ -1,5 +1,6 @@
 'use strict'
 
 module.exports = {
-	 locations:  require('./lib/locations')
+	  departures: require('./lib/departures')
+	, locations:  require('./lib/locations')
 }
