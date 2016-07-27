@@ -92,3 +92,88 @@ const minute = 60 * 1000
 const hour = 60 * minute
 const when = new Date(+floor(new Date(), 'day') + 10 * hour)
 const validWhen = isRoughlyEqual(10 * hour, +when)
+
+
+
+test(function* () {
+	// Berlin Jungfernheide to München Hbf
+	const routes = yield hafas.routes(8011167, 8000261,
+		{results: 3, when, passedStations: true})
+	ok(Array.isArray(routes))
+	eql(routes.length, 3)
+	for (let route of routes) {
+
+		ok(validStation(route.from))
+		ok(yield findStation(route.from))
+		ok(validWhen(route.start))
+
+		ok(validStation(route.to))
+		ok(validStation(route.to))
+		ok(validWhen(route.end))
+
+		ok(Array.isArray(route.parts))
+		ok(route.parts.length > 0)
+		const part = route.parts[0]
+
+		ok(validStation(part.from))
+		ok(yield findStation(part.from))
+		ok(validWhen(part.start))
+
+		ok(validStation(part.to))
+		ok(yield findStation(part.to))
+		ok(validWhen(part.end))
+
+		ok(validLine(part.product))
+
+		ok(Array.isArray(part.passed))
+		for (let stop of part.passed) ok(validStop(stop))
+	}
+})
+
+
+
+test(function* () {
+	// Berlin Jungfernheide to Torfstraße 17
+	const routes = yield hafas.routes(8011167, {
+		type: 'address', name: 'Torfstraße 17',
+		latitude: 52.5416823, longitude: 13.3491223
+	}, {results: 1, when})
+
+	ok(Array.isArray(routes))
+	ok(routes.length >= 1)
+	const route = routes[0]
+	const part = route.parts[route.parts.length - 1]
+
+	ok(validStation(part.from))
+	ok(validWhen(part.start))
+
+	ok(validAddress(part.to))
+	eql(part.to.name, 'Torfstraße 17')
+	ok(isRoughlyEqual(.0001, part.to.latitude, 52.5416823))
+	ok(isRoughlyEqual(.0001, part.to.longitude, 13.3491223))
+	ok(validWhen(part.end))
+})
+
+
+
+test(function* () {
+	// Berlin Jungfernheide to ATZE Musiktheater
+	const routes = yield hafas.routes(8011167, {
+		type: 'poi', name: 'ATZE Musiktheater', id: 990363204,
+		latitude: 52.543333, longitude: 13.351686
+	}, {results: 1, when})
+
+	ok(Array.isArray(routes))
+	ok(routes.length >= 1)
+	const route = routes[0]
+	const part = route.parts[route.parts.length - 1]
+
+	ok(validStation(part.from))
+	ok(validWhen(part.start))
+
+	ok(validPoi(part.to))
+	eql(part.to.name, 'ATZE Musiktheater')
+	ok(isRoughlyEqual(.0001, part.to.latitude, 52.543333))
+	ok(isRoughlyEqual(.0001, part.to.longitude, 13.351686))
+	ok(validWhen(part.end))
+})
