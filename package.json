@@ -13,5 +13,14 @@
 		"db", "german", "railway", "public transport",
 		"api", "open data", "hafas", "http"
 	],
-	"engines" :     {"node": ">=4"}
+	"engines" :     {"node": ">=4"},
+	"devDependencies": {
+		"is-roughly-equal": "^0.1",
+		"db-stations": "^0.1",
+		"floordate": "^2"
+	},
+	"scripts": {
+		"test":       "./test.js",
+		"prepublish": "npm test"
+	}
 }
