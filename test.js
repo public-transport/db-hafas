@@ -177,3 +177,45 @@ test(function* () {
 	ok(isRoughlyEqual(.0001, part.to.longitude, 13.351686))
 	ok(validWhen(part.end))
 })
+
+
+
+test(function* () {
+	// Berlin Jungfernheide
+	const deps = yield hafas.departures(8011167, {duration: 5, when})
+
+	ok(Array.isArray(deps))
+	for (let dep of deps) {
+		ok(validStation(dep.station))
+		ok(yield findStation(dep.station))
+		ok(validWhen(dep.when))
+	}
+})
+
+
+
+test(function* () {
+	// Berlin Jungfernheide
+	const nearby = yield hafas.nearby(52.530273, 13.299433,
+		{results: 2, distance: 400})
+
+	ok(Array.isArray(nearby))
+	eql(nearby.length, 2)
+
+	ok(isJungfernheide(nearby[0]))
+	ok(nearby[0].distance >= 0)
+	ok(nearby[0].distance <= 100)
+})
+
+
+
+test(function* () {
+	const locations = yield hafas.locations('Jungfernheide', {results: 10})
+
+	ok(Array.isArray(locations))
+	ok(locations.length > 0)
+	ok(locations.length <= 10)
+
+	ok(locations.every(validLocation))
+	ok(locations.find(isJungfernheide))
+})
