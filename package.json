@@ -14,7 +14,11 @@
 		"api", "open data", "hafas", "http"
 	],
 	"engines" :     {"node": ">=4"},
+	"dependencies": {
+		"hafas-client": "^0.5"
+	},
 	"devDependencies": {
+		"so": "^1.0.1",
 		"is-roughly-equal": "^0.1",
 		"db-stations": "^0.1",
 		"floordate": "^2"
