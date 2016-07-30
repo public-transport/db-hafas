@@ -98,7 +98,7 @@ const validWhen = isRoughlyEqual(10 * hour, +when)
 test(function* () {
 	// Berlin Jungfernheide to München Hbf
 	const routes = yield hafas.routes(8011167, 8000261,
-		{results: 3, when, passedStations: true})
+		{when, passedStations: true})
 	ok(Array.isArray(routes))
 	eql(routes.length, 3)
 	for (let route of routes) {
@@ -137,7 +137,7 @@ test(function* () {
 	const routes = yield hafas.routes(8011167, {
 		type: 'address', name: 'Torfstraße 17',
 		latitude: 52.5416823, longitude: 13.3491223
-	}, {results: 1, when})
+	}, {when})
 
 	ok(Array.isArray(routes))
 	ok(routes.length >= 1)
@@ -161,7 +161,7 @@ test(function* () {
 	const routes = yield hafas.routes(8011167, {
 		type: 'poi', name: 'ATZE Musiktheater', id: 990363204,
 		latitude: 52.543333, longitude: 13.351686
-	}, {results: 1, when})
+	}, {when})
 
 	ok(Array.isArray(routes))
 	ok(routes.length >= 1)
