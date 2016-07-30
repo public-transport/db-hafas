@@ -6,7 +6,7 @@ const ok = require('assert').ok
 const eql = require('assert').strictEqual
 const isRoughlyEqual = require('is-roughly-equal')
 const stations = require('db-stations')
-const floor = require('floordate')
+const moment = require('moment-timezone')
 const hafas = require('./index.js')
 
 
@@ -88,9 +88,9 @@ const isMünchenHbf = (s) =>
 
 // fixtures
 
+const when = moment(Date.now()).tz('Europe/Berlin').startOf('day').hours(8).toDate()
 const minute = 60 * 1000
 const hour = 60 * minute
-const when = new Date(+floor(new Date(), 'day') + 10 * hour)
 const validWhen = isRoughlyEqual(10 * hour, +when)
 
 
@@ -100,7 +100,7 @@ test(function* () {
 	const routes = yield hafas.routes(8011167, 8000261,
 		{when, passedStations: true})
 	ok(Array.isArray(routes))
-	eql(routes.length, 3)
+	eql(routes.length, 4)
 	for (let route of routes) {
 
 		ok(validStation(route.from))
