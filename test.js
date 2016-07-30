@@ -13,7 +13,7 @@ const hafas = require('./index.js')
 
 // helpers
 
-const roughlyEql = (...args) => a.ok(isRoughlyEqual(...args))
+const roughlyEql = function () {return a.ok(isRoughlyEqual.apply({}, arguments))}
 
 const test = (fn) => {
 	so(fn)().catch((err) => {
