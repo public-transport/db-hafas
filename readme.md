@@ -152,6 +152,12 @@ The output will have the following structure:
 ```
 
 
+## Similar Projects
+
+- [Fahrplan.js](https://github.com/pbock/fahrplan) – "A JavaScript client for Deutsche Bahn's timetable API"
+- [db-stations](https://github.com/derhuerst/db-stations) – An offline list of all DB stations.
+
+
 ## Contributing
 
 If you **have a question**, **found a bug** or want to **propose a feature**, have a look at [the issues page](https://github.com/derhuerst/db-hafas/issues).

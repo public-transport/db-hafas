@@ -3,7 +3,7 @@
 	"description":  "JavaScript client for the DB HAFAS API.",
 	"version":      "0.1.0",
 	"main":         "index.js",
-	"files":        ["index.js", "lib/*"],
+	"files":        ["index.js", "lib/*", "docs/*"],
 	"author":       "Jannis R <mail@jannisr.de>",
 	"homepage":     "https://github.com/derhuerst/db-hafas",
 	"repository":   "derhuerst/db-hafas",
@@ -13,7 +13,7 @@
 		"db", "german", "railway", "public transport",
 		"api", "open data", "hafas", "http"
 	],
-	"engines" :     {"node": ">=4"},
+	"engines" :     {"node": ">=6"},
 	"dependencies": {
 		"hafas-client": "^0.5"
 	},
