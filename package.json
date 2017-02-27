@@ -18,13 +18,14 @@
 		"hafas-client": "^0.5"
 	},
 	"devDependencies": {
-		"so": "^1.0.1",
-		"is-roughly-equal": "^0.1",
 		"db-stations": "^0.1",
-		"moment-timezone": "^0.5.5"
+		"moment-timezone": "^0.5.5",
+		"is-roughly-equal": "^0.1",
+		"tape": "^4.6.3",
+		"tap-min": "^1.2.1"
 	},
 	"scripts": {
-		"test":       "./test.js",
+		"test":       "node test.js | tap-min",
 		"prepublish": "npm test"
 	}
 }

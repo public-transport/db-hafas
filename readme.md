@@ -7,6 +7,7 @@
 [![dependency status](https://img.shields.io/david/derhuerst/db-hafas.svg)](https://david-dm.org/derhuerst/db-hafas)
 [![dev dependency status](https://img.shields.io/david/dev/derhuerst/db-hafas.svg)](https://david-dm.org/derhuerst/db-hafas#info=devDependencies)
 ![ISC-licensed](https://img.shields.io/github/license/derhuerst/db-hafas.svg)
+[![chat on gitter](https://badges.gitter.im/derhuerst.svg)](https://gitter.im/derhuerst)
 
 
 ## Installing

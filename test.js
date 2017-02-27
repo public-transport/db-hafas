@@ -1,84 +1,93 @@
-#!/usr/bin/env node
 'use strict'
 
-const so = require('so')
-const ok = require('assert').ok
-const eql = require('assert').strictEqual
+const test = require('tape')
 const isRoughlyEqual = require('is-roughly-equal')
 const stations = require('db-stations')
 const moment = require('moment-timezone')
-const hafas = require('./index.js')
+const hafas = require('.')
 
 
 
 // helpers
 
-const roughlyEql = (...args) => a.ok(isRoughlyEqual(...args))
-
-const test = (fn) => {
-	so(fn)().catch((err) => {
-		console.error(err.stack || err.message)
-		process.exit(1)
+const findStation = (id) =>
+	new Promise((yay, nay) => {
+		stations().on('error', nay)
+		.on('data', (s) => {
+			if (s.id === id) yay(s)
+		})
+		.on('end', () => yay())
 	})
+
+const assertValidStation = (t, s) => {
+	t.equal(s.type, 'station')
+	t.equal(typeof s.id, 'number')
+	t.equal(typeof s.name, 'string')
+	t.equal(typeof s.latitude, 'number')
+	t.equal(typeof s.longitude, 'number')
 }
 
-const findStation = (id) => new Promise((yay, nay) => {
-	stations().on('error', nay)
-	.on('data', (s) => {
-		if (s.id === id) yay(s)
-	})
-	.on('end', () => yay())
-})
+const assertValidPoi = (t, p) => {
+	t.equal(p.type, 'poi')
+	t.equal(typeof p.id, 'number')
+	t.equal(typeof p.name, 'string')
+	t.equal(typeof p.latitude, 'number')
+	t.equal(typeof p.longitude, 'number')
+}
 
-const validStation = (s) =>
-	   s.type === 'station'
-	&& 'number' === typeof s.id
-	&& 'string' === typeof s.name
-	&& 'number' === typeof s.latitude
-	&& 'number' === typeof s.longitude
+const assertValidAddress = (t, p) => {
+	t.equal(p.type, 'address')
+	t.equal(typeof p.name, 'string')
+	t.equal(typeof p.latitude, 'number')
+	t.equal(typeof p.longitude, 'number')
+}
 
-const validPoi = (p) =>
-	   p.type === 'poi'
-	&& 'number' === typeof p.id
-	&& 'string' === typeof p.name
-	&& 'number' === typeof p.latitude
-	&& 'number' === typeof p.longitude
+const assertValidLocation = (t, l) => {
+	t.equal(typeof l.type, 'string')
+	if (l.type === 'station') assertValidStation(t, l)
+	else if (l.type === 'poi') assertValidPoi(t, l)
+	else if (l.type === 'address') assertValidAddress(t, l)
+	else t.fail('invalid type')
+}
 
-const validAddress = (p) =>
-	   p.type === 'address'
-	&& 'string' === typeof p.name
-	&& 'number' === typeof p.latitude
-	&& 'number' === typeof p.longitude
+const assertValidLine = (t, l) => {
+	t.equal(typeof l.name, 'string')
+	t.equal(typeof l.nr, 'number')
+	t.equal(typeof l.class, 'number')
+	t.equal(typeof l.productCode, 'number')
+	t.equal(typeof l.productName, 'string')
+}
 
-const validLocation = so(function* (l) {return
-	validStation(l) || validPoi(l) || validAddress(l)
-})
-
-const validLine = (l) =>
-	   'string' === typeof l.name
-	&& 'number' === typeof l.nr
-	&& 'number' === typeof l.class
-	&& 'number' === typeof l.productCode
-	&& 'string' === typeof l.productName
-
-const validStop = (s) =>
-	   s.arrival instanceof Date
-	&& s.departure instanceof Date
-	&& validStation(s.station)
+const assertValidStop = (t, s) => {
+	if ('arrival' in s) t.ok(s.arrival instanceof Date)
+	if ('departure' in s) t.ok(s.departure instanceof Date)
+	if (!('arrival' in s) && !('departure' in s))
+		t.fail('stop doesn\'t contain arrival or departure')
+	assertValidStation(t, s.station)
+}
 
 const isJungfernheide = (s) =>
-	   s.type === 'station'
-	&& s.id === 8011167
-	&& s.name === 'Berlin Jungfernheide'
-	&& isRoughlyEqual(s.latitude, 52.530408, .0005)
-	&& isRoughlyEqual(s.longitude, 13.299424, .0005)
+	s.type === 'station' &&
+	s.id === 8011167 &&
+	s.name === 'Berlin Jungfernheide' &&
+	isRoughlyEqual(s.latitude, 52.530408, .0005) &&
+	isRoughlyEqual(s.longitude, 13.299424, .0005)
 
-const isMünchenHbf = (s) =>
-	   s.type === 'station'
-	&& s.id === 8000261
-	&& s.name === 'München Hbf'
-	&& s.latitude === 48.140229
-	&& s.longitude === 11.558339
+const assertIsJungfernheide = (t, s) => {
+	t.equal(s.type, 'station')
+	t.equal(s.id, 8011167)
+	t.equal(s.name, 'Berlin Jungfernheide')
+	t.ok(isRoughlyEqual(s.latitude, 52.530408, .0005))
+	t.ok(isRoughlyEqual(s.longitude, 13.299424, .0005))
+}
+
+const assertIsMünchenHbf = (s) => {
+	t.equal(s.type, 'station')
+	t.equal(s.id, 8000261)
+	t.equal(s.name, 'München Hbf')
+	t.equal(s.latitude, 48.140229)
+	t.equal(s.longitude, 11.558339)
+}
 
 
 
@@ -91,132 +100,141 @@ const validWhen = isRoughlyEqual(10 * hour, +when)
 
 
 
-test(function* () {
+test('Berlin Jungfernheide to München Hbf', (t) => {
 	// Berlin Jungfernheide to München Hbf
-	const routes = yield hafas.routes(8011167, 8000261,
-		{when, passedStations: true})
-	ok(Array.isArray(routes))
-	ok(routes.length > 0, 'no routes')
-	for (let route of routes) {
+	hafas.routes(8011167, 8000261, {when, passedStations: true})
+	.then((routes) => {
+		t.ok(Array.isArray(routes))
+		t.ok(routes.length > 0, 'no routes')
+		for (let route of routes) {
+			assertValidStation(t, route.from)
+			// todo
+			// ok(yield findStation(route.from))
+			t.ok(validWhen(route.start))
 
-		ok(validStation(route.from))
-		// todo
-		// ok(yield findStation(route.from))
-		ok(validWhen(route.start))
+			assertValidStation(t, route.to)
+			assertValidStation(t, route.to)
+			t.ok(validWhen(route.end))
 
-		ok(validStation(route.to))
-		ok(validStation(route.to))
-		ok(validWhen(route.end))
+			t.ok(Array.isArray(route.parts))
+			t.ok(route.parts.length > 0)
+			const part = route.parts[0]
 
-		ok(Array.isArray(route.parts))
-		ok(route.parts.length > 0)
-		const part = route.parts[0]
+			assertValidStation(t, part.from)
+			// todo
+			// ok(yield findStation(part.from))
+			t.ok(validWhen(part.start))
 
-		ok(validStation(part.from))
-		// todo
-		// ok(yield findStation(part.from))
-		ok(validWhen(part.start))
+			assertValidStation(t, part.to)
+			// todo
+			// ok(yield findStation(part.to))
+			t.ok(validWhen(part.end))
 
-		ok(validStation(part.to))
-		// todo
-		// ok(yield findStation(part.to))
-		ok(validWhen(part.end))
+			assertValidLine(t, part.product)
 
-		console.log(part.product)
-		ok(validLine(part.product))
-
-		ok(Array.isArray(part.passed))
-		for (let stop of part.passed) ok(validStop(stop))
-	}
+			t.ok(Array.isArray(part.passed))
+			for (let stop of part.passed) assertValidStop(t, stop)
+		}
+	})
+	.then(t.end, t.ifError)
 })
 
 
 
-test(function* () {
+test('Berlin Jungfernheide to Torfstraße 17', (t) => {
 	// Berlin Jungfernheide to Torfstraße 17
-	const routes = yield hafas.routes(8011167, {
+	hafas.routes(8011167, {
 		type: 'address', name: 'Torfstraße 17',
 		latitude: 52.5416823, longitude: 13.3491223
 	}, {when})
+	.then((routes) => {
+		t.ok(Array.isArray(routes))
+		t.ok(routes.length >= 1)
+		const route = routes[0]
+		const part = route.parts[route.parts.length - 1]
 
-	ok(Array.isArray(routes))
-	ok(routes.length >= 1)
-	const route = routes[0]
-	const part = route.parts[route.parts.length - 1]
+		assertValidStation(t, part.from)
+		t.ok(validWhen(part.start))
 
-	ok(validStation(part.from))
-	ok(validWhen(part.start))
-
-	ok(validAddress(part.to))
-	eql(part.to.name, 'Torfstraße 17')
-	ok(isRoughlyEqual(.0001, part.to.latitude, 52.5416823))
-	ok(isRoughlyEqual(.0001, part.to.longitude, 13.3491223))
-	ok(validWhen(part.end))
+		assertValidAddress(t, part.to)
+		t.equal(part.to.name, 'Torfstraße 17')
+		t.ok(isRoughlyEqual(.0001, part.to.latitude, 52.5416823))
+		t.ok(isRoughlyEqual(.0001, part.to.longitude, 13.3491223))
+		t.ok(validWhen(part.end))
+	})
+	.then(t.end, t.ifError)
 })
 
 
 
-test(function* () {
+test('Berlin Jungfernheide to ATZE Musiktheater', (t) => {
 	// Berlin Jungfernheide to ATZE Musiktheater
-	const routes = yield hafas.routes(8011167, {
+	hafas.routes(8011167, {
 		type: 'poi', name: 'ATZE Musiktheater', id: 990363204,
 		latitude: 52.543333, longitude: 13.351686
 	}, {when})
+	.then((routes) => {
+		t.ok(Array.isArray(routes))
+		t.ok(routes.length >= 1)
+		const route = routes[0]
+		const part = route.parts[route.parts.length - 1]
 
-	ok(Array.isArray(routes))
-	ok(routes.length >= 1)
-	const route = routes[0]
-	const part = route.parts[route.parts.length - 1]
+		assertValidStation(t, part.from)
+		t.ok(validWhen(part.start))
 
-	ok(validStation(part.from))
-	ok(validWhen(part.start))
-
-	ok(validPoi(part.to))
-	eql(part.to.name, 'ATZE Musiktheater')
-	ok(isRoughlyEqual(.0001, part.to.latitude, 52.543333))
-	ok(isRoughlyEqual(.0001, part.to.longitude, 13.351686))
-	ok(validWhen(part.end))
+		assertValidPoi(t, part.to)
+		t.equal(part.to.name, 'ATZE Musiktheater')
+		t.ok(isRoughlyEqual(.0001, part.to.latitude, 52.543333))
+		t.ok(isRoughlyEqual(.0001, part.to.longitude, 13.351686))
+		t.ok(validWhen(part.end))
+	})
+	.then(t.end, t.ifError)
 })
 
 
 
-test(function* () {
+test('departures at Berlin Jungfernheide', (t) => {
 	// Berlin Jungfernheide
-	const deps = yield hafas.departures(8011167, {duration: 5, when})
-
-	ok(Array.isArray(deps))
-	for (let dep of deps) {
-		ok(validStation(dep.station))
-		// todo
-		// ok(yield findStation(dep.station.id))
-		ok(validWhen(dep.when))
-	}
+	hafas.departures(8011167, {duration: 5, when})
+	.then((deps) => {
+		t.ok(Array.isArray(deps))
+		for (let dep of deps) {
+			assertValidStation(t, dep.station)
+			// todo
+			// t.ok(yield findStation(dep.station.id))
+			t.ok(validWhen(dep.when))
+		}
+	})
+	.then(t.end, t.ifError)
 })
 
 
 
-test(function* () {
+test('nearby Berlin Jungfernheide', (t) => {
 	// Berlin Jungfernheide
-	const nearby = yield hafas.nearby(52.530273, 13.299433,
-		{results: 2, distance: 400})
+	hafas.nearby(52.530273, 13.299433, {results: 2, distance: 400})
+	.then((nearby) => {
+		t.ok(Array.isArray(nearby))
+		t.equal(nearby.length, 2)
 
-	ok(Array.isArray(nearby))
-	eql(nearby.length, 2)
-
-	ok(isJungfernheide(nearby[0]))
-	ok(nearby[0].distance >= 0)
-	ok(nearby[0].distance <= 100)
+		assertIsJungfernheide(t, nearby[0])
+		t.ok(nearby[0].distance >= 0)
+		t.ok(nearby[0].distance <= 100)
+	})
+	.then(t.end, t.ifError)
 })
 
 
 
-test(function* () {
-	const locations = yield hafas.locations('Jungfernheide', {results: 10})
+test('locations named Jungfernheide', (t) => {
+	hafas.locations('Jungfernheide', {results: 10})
+	.then((locations) => {
+		t.ok(Array.isArray(locations))
+		t.ok(locations.length > 0)
+		t.ok(locations.length <= 10)
 
-	ok(Array.isArray(locations))
-	ok(locations.length > 0)
-	ok(locations.length <= 10)
-
-	ok(locations.every(validLocation))
-	ok(locations.find(isJungfernheide))
+		for (let location of locations) assertValidLocation(t, location)
+		t.ok(locations.find(isJungfernheide))
+	})
+	.then(t.end, t.ifError)
 })
