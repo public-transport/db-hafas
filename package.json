@@ -15,10 +15,10 @@
 	],
 	"engines" :     {"node": ">=6"},
 	"dependencies": {
-		"hafas-client": "^0.5"
+		"hafas-client": "^0.6.2"
 	},
 	"devDependencies": {
-		"db-stations": "^0.1",
+		"db-stations": "^0.4.0",
 		"moment-timezone": "^0.5.5",
 		"is-roughly-equal": "^0.1",
 		"tape": "^4.6.3",
