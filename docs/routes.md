@@ -25,6 +25,8 @@ With `opt`, you can override the default options, which look like this:
 	bahncard: 	0
 }
 ```
+## Bahncards
+For Bahncard and other timed Tickets see: https://gist.github.com/juliuste/202bb04f450a79f8fa12a2ec3abcd72d
 
 ## Response
 
