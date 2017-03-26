@@ -120,6 +120,8 @@ With `from = 8011167` and `to = 8011113`, the response looks like this:
 			taxi: false
 		}
 	},
-	end: 2016-07-30T00:33:00.000Z
+	end: 2016-07-30T00:33:00.000Z,
+	arrivalPlatform: 1,
+	departurePlatform 1
 } ]
 ```
