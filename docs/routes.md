@@ -21,7 +21,8 @@ With `opt`, you can override the default options, which look like this:
 		ferry:      true,
 		express:    true,
 		regional:   true
-	}
+	},
+	bahncard: 	0
 }
 ```
 
