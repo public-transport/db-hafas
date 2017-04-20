@@ -25,6 +25,7 @@ const assertValidStation = (t, s) => {
 	t.equal(typeof s.name, 'string')
 	t.equal(typeof s.latitude, 'number')
 	t.equal(typeof s.longitude, 'number')
+	if ('platform' in s) t.equal(typeof s.platform, 'string')
 }
 
 const assertValidPoi = (t, p) => {
