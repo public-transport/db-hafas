@@ -22,13 +22,53 @@ With `opt`, you can override the default options, which look like this:
 		express:    true,
 		regional:   true
 	},
-	bahncard: 	    0
+	loyaltyCard:    {type: routes.NONE}
 }
 ```
 
-## Bahncards
+## Loyalty Cards
 
-For *Bahncard* and other loyalty cards see: https://gist.github.com/juliuste/202bb04f450a79f8fa12a2ec3abcd72d
+Possible values for `loyaltyCard`:
+
+```js
+{ // Bahncard (Germany)
+	type: routes.BAHNCARD,
+	discount: 25, // or 50 for 50% discount
+	class: 2 // or 1 for first class
+}
+```
+
+```js
+{ // VORTEILScard (Austria)
+	type: routes.VORTEILSCARD
+}
+```
+
+```js
+{ // HalbtaxAbo (Switzerland)
+	type: routes.HALBTAXABO,
+	railplus: true
+}
+```
+
+```js
+{ // Voordeelurenabo (Netherlands)
+	type: routes.VOORDEELURENABO,
+	railplus: true
+}
+```
+
+```js
+{
+	type: routes.SHCARD
+}
+```
+
+```js
+{ // General-Abonnement (Switzerland)
+	type: routes.GENERALABONNEMENT
+}
+```
 
 ## Response
 
