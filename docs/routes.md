@@ -21,7 +21,52 @@ With `opt`, you can override the default options, which look like this:
 		ferry:      true,
 		express:    true,
 		regional:   true
-	}
+	},
+	loyaltyCard:    {type: routes.NONE}
+}
+```
+
+## Loyalty Cards
+
+Possible values for `loyaltyCard`:
+
+```js
+{ // Bahncard (Germany)
+	type: routes.BAHNCARD,
+	discount: 25, // or 50 for 50% discount
+	class: 2 // or 1 for first class
+}
+```
+
+```js
+{ // VORTEILScard (Austria)
+	type: routes.VORTEILSCARD
+}
+```
+
+```js
+{ // HalbtaxAbo (Switzerland)
+	type: routes.HALBTAXABO,
+	railplus: true
+}
+```
+
+```js
+{ // Voordeelurenabo (Netherlands)
+	type: routes.VOORDEELURENABO,
+	railplus: true
+}
+```
+
+```js
+{
+	type: routes.SHCARD
+}
+```
+
+```js
+{ // General-Abonnement (Switzerland)
+	type: routes.GENERALABONNEMENT
 }
 ```
 
@@ -38,6 +83,7 @@ With `from = 8011167` and `to = 8011113`, the response looks like this:
 			name: 'Berlin Jungfernheide (S)',
 			latitude: 52.530372,
 			longitude: 13.299442,
+			platform: '1',
 			products: {
 				nationalExp: false,
 				national: false,
@@ -57,6 +103,7 @@ With `from = 8011167` and `to = 8011113`, the response looks like this:
 			name: 'Berlin Südkreuz (S)',
 			latitude: 52.476131,
 			longitude: 13.365144,
+			platform: '3',
 			products: {
 				nationalExp: false,
 				national: false,
@@ -87,6 +134,7 @@ With `from = 8011167` and `to = 8011113`, the response looks like this:
 		name: 'Berlin Jungfernheide (S)',
 		latitude: 52.530372,
 		longitude: 13.299442,
+		platform: '1',
 		products: {
 			nationalExp: false,
 			national: false,
@@ -107,6 +155,7 @@ With `from = 8011167` and `to = 8011113`, the response looks like this:
 		name: 'Berlin Südkreuz (S)',
 		latitude: 52.476131,
 		longitude: 13.365144,
+		platform: '3',
 		products: {
 			nationalExp: false,
 			national: false,

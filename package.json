@@ -15,7 +15,7 @@
 	],
 	"engines" :     {"node": ">=6"},
 	"dependencies": {
-		"hafas-client": "^0.6.2"
+		"hafas-client": "^0.7.0"
 	},
 	"devDependencies": {
 		"db-stations": "^0.4.0",
