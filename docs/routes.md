@@ -22,11 +22,13 @@ With `opt`, you can override the default options, which look like this:
 		express:    true,
 		regional:   true
 	},
-	bahncard: 	0
+	bahncard: 	    0
 }
 ```
+
 ## Bahncards
-For Bahncard and other timed Tickets see: https://gist.github.com/juliuste/202bb04f450a79f8fa12a2ec3abcd72d
+
+For *Bahncard* and other loyalty cards see: https://gist.github.com/juliuste/202bb04f450a79f8fa12a2ec3abcd72d
 
 ## Response
 
@@ -103,6 +105,7 @@ With `from = 8011167` and `to = 8011113`, the response looks like this:
 			taxi: false
 		}
 	},
+	departurePlatform 1,
 	start: 2016-07-29T23:48:00.000Z,
 	to: {
 		type: 'station',
@@ -123,8 +126,7 @@ With `from = 8011167` and `to = 8011113`, the response looks like this:
 			taxi: false
 		}
 	},
-	end: 2016-07-30T00:33:00.000Z,
 	arrivalPlatform: 1,
-	departurePlatform 1
+	end: 2016-07-30T00:33:00.000Z
 } ]
 ```
