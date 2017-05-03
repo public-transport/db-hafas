@@ -1,7 +1,7 @@
 {
 	"name":         "db-hafas",
 	"description":  "JavaScript client for the DB HAFAS API.",
-	"version":      "0.2.0",
+	"version":      "0.3.0",
 	"main":         "index.js",
 	"files":        ["index.js", "lib/*", "docs/*"],
 	"author":       "Jannis R <mail@jannisr.de>",
@@ -18,7 +18,7 @@
 		"hafas-client": "^0.7.0"
 	},
 	"devDependencies": {
-		"db-stations": "^0.4.0",
+		"db-stations": "^1.0.0",
 		"moment-timezone": "^0.5.5",
 		"is-roughly-equal": "^0.1",
 		"tape": "^4.6.3",

@@ -14,7 +14,7 @@ const findStation = (id) =>
 	new Promise((yay, nay) => {
 		stations().on('error', nay)
 		.on('data', (s) => {
-			if (s.id === id) yay(s)
+			if (s.id === id + '') yay(s)
 		})
 		.on('end', () => yay())
 	})
