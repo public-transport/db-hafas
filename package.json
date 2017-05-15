@@ -22,6 +22,7 @@
 		"moment-timezone": "^0.5.5",
 		"is-roughly-equal": "^0.1",
 		"tape": "^4.6.3",
+		"tape-co": "^1.0.1",
 		"tap-min": "^1.2.1"
 	},
 	"scripts": {

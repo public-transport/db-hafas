@@ -1,6 +1,6 @@
 'use strict'
 
-const test = require('tape')
+const test = require('tape-co').default
 const isRoughlyEqual = require('is-roughly-equal')
 const stations = require('db-stations')
 const moment = require('moment-timezone')
@@ -101,141 +101,131 @@ const validWhen = isRoughlyEqual(10 * hour, +when)
 
 
 
-test('Berlin Jungfernheide to München Hbf', (t) => {
+test('Berlin Jungfernheide to München Hbf', function* (t) {
 	// Berlin Jungfernheide to München Hbf
-	hafas.routes(8011167, 8000261, {when, passedStations: true})
-	.then((routes) => {
-		t.ok(Array.isArray(routes))
-		t.ok(routes.length > 0, 'no routes')
-		for (let route of routes) {
-			assertValidStation(t, route.from)
-			// todo
-			// ok(yield findStation(route.from))
-			t.ok(validWhen(route.start))
-
-			assertValidStation(t, route.to)
-			assertValidStation(t, route.to)
-			t.ok(validWhen(route.end))
-
-			t.ok(Array.isArray(route.parts))
-			t.ok(route.parts.length > 0)
-			const part = route.parts[0]
-
-			assertValidStation(t, part.from)
-			// todo
-			// ok(yield findStation(part.from))
-			t.ok(validWhen(part.start))
-
-			assertValidStation(t, part.to)
-			// todo
-			// ok(yield findStation(part.to))
-			t.ok(validWhen(part.end))
-
-			assertValidLine(t, part.product)
-
-			t.ok(Array.isArray(part.passed))
-			for (let stop of part.passed) assertValidStop(t, stop)
-		}
+	const routes = yield hafas.routes(8011167, 8000261, {
+		when, passedStations: true
 	})
-	.then(t.end, t.ifError)
+
+	t.ok(Array.isArray(routes))
+	t.ok(routes.length > 0, 'no routes')
+	for (let route of routes) {
+		assertValidStation(t, route.from)
+		// t.ok(yield findStation(route.from.id))
+		t.ok(validWhen(route.start))
+
+		assertValidStation(t, route.to)
+		// t.ok(yield findStation(route.from.id))
+		t.ok(validWhen(route.end))
+
+		t.ok(Array.isArray(route.parts))
+		t.ok(route.parts.length > 0)
+		const part = route.parts[0]
+
+		assertValidStation(t, part.from)
+		// t.ok(yield findStation(part.from.id))
+		t.ok(validWhen(part.start))
+
+		assertValidStation(t, part.to)
+		// t.ok(yield findStation(part.to.id))
+		t.ok(validWhen(part.end))
+
+		assertValidLine(t, part.product)
+
+		t.ok(Array.isArray(part.passed))
+		for (let stop of part.passed) assertValidStop(t, stop)
+	}
 })
 
 
 
-test('Berlin Jungfernheide to Torfstraße 17', (t) => {
+test('Berlin Jungfernheide to Torfstraße 17', function* (t) {
 	// Berlin Jungfernheide to Torfstraße 17
-	hafas.routes(8011167, {
+	const routes = yield hafas.routes(8011167, {
 		type: 'address', name: 'Torfstraße 17',
 		latitude: 52.5416823, longitude: 13.3491223
 	}, {when})
-	.then((routes) => {
-		t.ok(Array.isArray(routes))
-		t.ok(routes.length >= 1)
-		const route = routes[0]
-		const part = route.parts[route.parts.length - 1]
 
-		assertValidStation(t, part.from)
-		t.ok(validWhen(part.start))
+	t.ok(Array.isArray(routes))
+	t.ok(routes.length >= 1)
+	const route = routes[0]
+	const part = route.parts[route.parts.length - 1]
 
-		assertValidAddress(t, part.to)
-		t.equal(part.to.name, 'Torfstraße 17')
-		t.ok(isRoughlyEqual(.0001, part.to.latitude, 52.5416823))
-		t.ok(isRoughlyEqual(.0001, part.to.longitude, 13.3491223))
-		t.ok(validWhen(part.end))
-	})
-	.then(t.end, t.ifError)
+	assertValidStation(t, part.from)
+	// t.ok(yield findStation(part.from.id))
+	t.ok(validWhen(part.start))
+
+	assertValidAddress(t, part.to)
+	t.equal(part.to.name, 'Torfstraße 17')
+	t.ok(isRoughlyEqual(.0001, part.to.latitude, 52.5416823))
+	t.ok(isRoughlyEqual(.0001, part.to.longitude, 13.3491223))
+	t.ok(validWhen(part.end))
 })
 
 
 
-test('Berlin Jungfernheide to ATZE Musiktheater', (t) => {
+test('Berlin Jungfernheide to ATZE Musiktheater', function* (t) {
 	// Berlin Jungfernheide to ATZE Musiktheater
-	hafas.routes(8011167, {
+	const routes = yield hafas.routes(8011167, {
 		type: 'poi', name: 'ATZE Musiktheater', id: 990363204,
 		latitude: 52.543333, longitude: 13.351686
 	}, {when})
-	.then((routes) => {
-		t.ok(Array.isArray(routes))
-		t.ok(routes.length >= 1)
-		const route = routes[0]
-		const part = route.parts[route.parts.length - 1]
 
-		assertValidStation(t, part.from)
-		t.ok(validWhen(part.start))
+	t.ok(Array.isArray(routes))
+	t.ok(routes.length >= 1)
+	const route = routes[0]
+	const part = route.parts[route.parts.length - 1]
 
-		assertValidPoi(t, part.to)
-		t.equal(part.to.name, 'ATZE Musiktheater')
-		t.ok(isRoughlyEqual(.0001, part.to.latitude, 52.543333))
-		t.ok(isRoughlyEqual(.0001, part.to.longitude, 13.351686))
-		t.ok(validWhen(part.end))
-	})
-	.then(t.end, t.ifError)
+	assertValidStation(t, part.from)
+	// t.ok(yield findStation(part.from.id))
+	t.ok(validWhen(part.start))
+
+	assertValidPoi(t, part.to)
+	t.equal(part.to.name, 'ATZE Musiktheater')
+	t.ok(isRoughlyEqual(.0001, part.to.latitude, 52.543333))
+	t.ok(isRoughlyEqual(.0001, part.to.longitude, 13.351686))
+	t.ok(validWhen(part.end))
 })
 
 
 
-test('departures at Berlin Jungfernheide', (t) => {
+test('departures at Berlin Jungfernheide', function* (t) {
 	// Berlin Jungfernheide
-	hafas.departures(8011167, {duration: 5, when})
-	.then((deps) => {
-		t.ok(Array.isArray(deps))
-		for (let dep of deps) {
-			assertValidStation(t, dep.station)
-			// todo
-			// t.ok(yield findStation(dep.station.id))
-			t.ok(validWhen(dep.when))
-		}
-	})
-	.then(t.end, t.ifError)
+	const deps = yield hafas.departures(8011167, {duration: 5, when})
+
+	t.ok(Array.isArray(deps))
+	for (let dep of deps) {
+		assertValidStation(t, dep.station)
+		// t.ok(yield findStation(dep.station.id))
+		t.ok(validWhen(dep.when))
+	}
 })
 
 
 
-test('nearby Berlin Jungfernheide', (t) => {
+test('nearby Berlin Jungfernheide', function* (t) {
 	// Berlin Jungfernheide
-	hafas.nearby(52.530273, 13.299433, {results: 2, distance: 400})
-	.then((nearby) => {
-		t.ok(Array.isArray(nearby))
-		t.equal(nearby.length, 2)
-
-		assertIsJungfernheide(t, nearby[0])
-		t.ok(nearby[0].distance >= 0)
-		t.ok(nearby[0].distance <= 100)
+	const nearby = yield hafas.nearby(52.530273, 13.299433, {
+		results: 2, distance: 400
 	})
-	.then(t.end, t.ifError)
+
+	t.ok(Array.isArray(nearby))
+	t.equal(nearby.length, 2)
+
+	assertIsJungfernheide(t, nearby[0])
+	t.ok(nearby[0].distance >= 0)
+	t.ok(nearby[0].distance <= 100)
 })
 
 
 
-test('locations named Jungfernheide', (t) => {
-	hafas.locations('Jungfernheide', {results: 10})
-	.then((locations) => {
-		t.ok(Array.isArray(locations))
-		t.ok(locations.length > 0)
-		t.ok(locations.length <= 10)
+test('locations named Jungfernheide', function* (t) {
+	const locations = yield hafas.locations('Jungfernheide', {results: 10})
 
-		for (let location of locations) assertValidLocation(t, location)
-		t.ok(locations.find(isJungfernheide))
-	})
-	.then(t.end, t.ifError)
+	t.ok(Array.isArray(locations))
+	t.ok(locations.length > 0)
+	t.ok(locations.length <= 10)
+
+	for (let location of locations) assertValidLocation(t, location)
+	t.ok(locations.find(isJungfernheide))
 })
