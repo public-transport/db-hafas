@@ -1,4 +1,4 @@
-# `routes(from, to, [opt])`
+# `journeys(from, to, [opt])`
 
 `from` and `to` must be station ids like `8011167`.
 
@@ -7,12 +7,12 @@ With `opt`, you can override the default options, which look like this:
 ```js
 {
 	when:           new Date(),
-	via:            null, // let routes pass this station
+	via:            null, // let journeys pass this station
 	passedStations: false, // return stations on the way?
 	transfers:      5, // maximum of 5 transfers
 	transferTime:   0, // minimum time for a single transfer in minutes
 	accessibility:  'none', // 'none', 'partial' or 'complete'
-	bike:           false, // only bike-friendly routes
+	bike:           false, // only bike-friendly journeys
 	products: {
 		suburban:   true,
 		subway:     true,
@@ -22,7 +22,7 @@ With `opt`, you can override the default options, which look like this:
 		express:    true,
 		regional:   true
 	},
-	loyaltyCard:    {type: routes.NONE}
+	loyaltyCard:    {type: journeys.NONE}
 }
 ```
 
@@ -32,7 +32,7 @@ Possible values for `loyaltyCard`:
 
 ```js
 { // Bahncard (Germany)
-	type: routes.BAHNCARD,
+	type: journeys.BAHNCARD,
 	discount: 25, // or 50 for 50% discount
 	class: 2 // or 1 for first class
 }
@@ -40,33 +40,33 @@ Possible values for `loyaltyCard`:
 
 ```js
 { // VORTEILScard (Austria)
-	type: routes.VORTEILSCARD
+	type: journeys.VORTEILSCARD
 }
 ```
 
 ```js
 { // HalbtaxAbo (Switzerland)
-	type: routes.HALBTAXABO,
+	type: journeys.HALBTAXABO,
 	railplus: true
 }
 ```
 
 ```js
 { // Voordeelurenabo (Netherlands)
-	type: routes.VOORDEELURENABO,
+	type: journeys.VOORDEELURENABO,
 	railplus: true
 }
 ```
 
 ```js
 {
-	type: routes.SHCARD
+	type: journeys.SHCARD
 }
 ```
 
 ```js
 { // General-Abonnement (Switzerland)
-	type: routes.GENERALABONNEMENT
+	type: journeys.GENERALABONNEMENT
 }
 ```
 
