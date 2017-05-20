@@ -6,6 +6,7 @@ With `opt`, you can override the default options, which look like this:
 
 ```js
 {
+	results:        5, // how many journeys?
 	when:           new Date(),
 	via:            null, // let journeys pass this station
 	passedStations: false, // return stations on the way?
