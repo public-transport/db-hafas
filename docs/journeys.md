@@ -1,6 +1,6 @@
 # `journeys(from, to, [opt])`
 
-`from` and `to` must be station ids like `8011167`.
+`from` and `to` must be station ids like `'8011167'`.
 
 With `opt`, you can override the default options, which look like this:
 
@@ -72,7 +72,7 @@ Possible values for `loyaltyCard`:
 
 ## Response
 
-With `from = 8011167` and `to = 8011113`, the response looks like this:
+With `from = '8011167'` and `to = '8011113'`, the response looks like this:
 
 ```js
 [ {
