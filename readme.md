@@ -1,5 +1,7 @@
 # db-hafas
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/derhuerst/db-hafas.svg)](https://greenkeeper.io/)
+
 **A client for the German Railway (DB).** It acts as a consistent and straightforward promise-based interface on top of the verbose [HAFAS](http://hacon.de/hafas) mobile API.
 
 [![npm version](https://img.shields.io/npm/v/db-hafas.svg)](https://www.npmjs.com/package/db-hafas)
