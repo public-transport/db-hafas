@@ -13,9 +13,10 @@ const hafas = require('.')
 
 const findStation = (id) =>
 	new Promise((yay, nay) => {
-		stations().on('error', nay)
+		stations()
+		.on('error', nay)
 		.on('data', (s) => {
-			if (s.id === id + '') yay(s)
+			if ((s.id + '') === id) yay(s)
 		})
 		.on('end', () => yay())
 	})
@@ -113,7 +114,12 @@ const assertIsMünchenHbf = (s) => {
 const when = moment(Date.now()).tz('Europe/Berlin').startOf('day').hours(8).toDate()
 const minute = 60 * 1000
 const hour = 60 * minute
-const validWhen = isRoughlyEqual(10 * hour, +when)
+
+const isValidWhen = (w) => {
+	const d = new Date(w)
+	if (Number.isNaN(+d)) return false
+	return isRoughlyEqual(10 * hour, +when, d)
+}
 
 
 
@@ -127,24 +133,24 @@ test('Berlin Jungfernheide to München Hbf', async (t) => {
 	t.ok(journeys.length > 0, 'no journeys')
 	for (let journey of journeys) {
 		assertValidStation(t, journey.origin)
-		// t.ok(await findStation(journey.origin.id)) // todo
-		t.ok(validWhen(journey.start))
+		t.ok(await findStation(journey.origin.id)) // todo
+		t.ok(isValidWhen(journey.departure))
 
 		assertValidStation(t, journey.destination)
-		// t.ok(await findStation(journey.destination.id)) // todo
-		t.ok(validWhen(journey.end))
+		t.ok(await findStation(journey.destination.id)) // todo
+		t.ok(isValidWhen(journey.arrival))
 
 		t.ok(Array.isArray(journey.parts))
 		t.ok(journey.parts.length > 0, 'no parts')
 		const part = journey.parts[0]
 
 		assertValidStation(t, part.origin)
-		// t.ok(await findStation(part.origin.id)) // todo
-		t.ok(validWhen(part.start))
+		t.ok(await findStation(part.origin.id)) // todo
+		t.ok(isValidWhen(part.departure))
 
 		assertValidStation(t, part.destination)
-		// t.ok(await findStation(part.destination.id)) // todo
-		t.ok(validWhen(part.end))
+		t.ok(await findStation(part.destination.id)) // todo
+		t.ok(isValidWhen(part.arrival))
 
 		assertValidLine(t, part.line)
 
@@ -171,8 +177,8 @@ test('Berlin Jungfernheide to Torfstraße 17', async (t) => {
 
 	assertValidStation(t, part.origin)
 	// t.ok(await findStation(part.origin.id)) // todo
-	t.ok(validWhen(part.start))
-	t.ok(validWhen(part.end))
+	t.ok(isValidWhen(part.departure))
+	t.ok(isValidWhen(part.arrival))
 
 	const d = part.destination
 	assertValidAddress(t, d)
@@ -199,14 +205,14 @@ test('Berlin Jungfernheide to ATZE Musiktheater', async (t) => {
 
 	assertValidStation(t, part.origin)
 	// t.ok(await findStation(part.origin.id)) // todo
-	t.ok(validWhen(part.start))
-	t.ok(validWhen(part.end))
+	t.ok(isValidWhen(part.departure))
+	t.ok(isValidWhen(part.arrival))
 
 	const d = part.destination
 	assertValidPoi(t, d)
 	t.equal(d.name, 'ATZE Musiktheater')
-	t.ok(isRoughlyEqual(.0001, d.latitude, 52.543333))
-	t.ok(isRoughlyEqual(.0001, d.longitude, 13.351686))
+	t.ok(isRoughlyEqual(.0001, d.coordinates.latitude, 52.543333))
+	t.ok(isRoughlyEqual(.0001, d.coordinates.longitude, 13.351686))
 
 	t.end()
 })
@@ -223,7 +229,7 @@ test('departures at Berlin Jungfernheide', async (t) => {
 	for (let dep of deps) {
 		assertValidStation(t, dep.station)
 		// t.ok(await findStation(dep.station.id)) // todo
-		t.ok(validWhen(dep.when))
+		t.ok(isValidWhen(dep.when))
 	}
 
 	t.end()
