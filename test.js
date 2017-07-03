@@ -131,11 +131,15 @@ test('Berlin Jungfernheide to München Hbf', async (t) => {
 	t.ok(journeys.length > 0, 'no journeys')
 	for (let journey of journeys) {
 		assertValidStation(t, journey.origin)
-		t.ok(await findStation(journey.origin.id)) // todo
+		if (!await findStation(journey.origin.id)) {
+			console.error('unknown station', journey.origin.id, journey.origin.name)
+		}
 		t.ok(isValidWhen(journey.departure))
 
 		assertValidStation(t, journey.destination)
-		t.ok(await findStation(journey.destination.id)) // todo
+		if (!await findStation(journey.origin.id)) {
+			console.error('unknown station', journey.destination.id, journey.destination.name)
+		}
 		t.ok(isValidWhen(journey.arrival))
 
 		t.ok(Array.isArray(journey.parts))
@@ -143,12 +147,16 @@ test('Berlin Jungfernheide to München Hbf', async (t) => {
 		const part = journey.parts[0]
 
 		assertValidStation(t, part.origin)
-		t.ok(await findStation(part.origin.id)) // todo
+		if (!await findStation(part.origin.id)) {
+			console.error('unknown station', part.origin.id, part.origin.name)
+		}
 		t.ok(isValidWhen(part.departure))
 		t.equal(typeof part.departurePlatform, 'string')
 
 		assertValidStation(t, part.destination)
-		t.ok(await findStation(part.destination.id)) // todo
+		if (!await findStation(part.destination.id)) {
+			console.error('unknown station', part.destination.id, part.destination.name)
+		}
 		t.ok(isValidWhen(part.arrival))
 		t.equal(typeof part.arrivalPlatform, 'string')
 
@@ -176,7 +184,9 @@ test('Berlin Jungfernheide to Torfstraße 17', async (t) => {
 	const part = journey.parts[journey.parts.length - 1]
 
 	assertValidStation(t, part.origin)
-	// t.ok(await findStation(part.origin.id)) // todo
+	if (!await findStation(part.origin.id)) {
+		console.error('unknown station', part.origin.id, part.origin.name)
+	}
 	t.ok(isValidWhen(part.departure))
 	t.ok(isValidWhen(part.arrival))
 
@@ -204,7 +214,9 @@ test('Berlin Jungfernheide to ATZE Musiktheater', async (t) => {
 	const part = journey.parts[journey.parts.length - 1]
 
 	assertValidStation(t, part.origin)
-	// t.ok(await findStation(part.origin.id)) // todo
+	if (!await findStation(part.origin.id)) {
+		console.error('unknown station', part.origin.id, part.origin.name)
+	}
 	t.ok(isValidWhen(part.departure))
 	t.ok(isValidWhen(part.arrival))
 
@@ -228,7 +240,9 @@ test('departures at Berlin Jungfernheide', async (t) => {
 	t.ok(Array.isArray(deps))
 	for (let dep of deps) {
 		assertValidStation(t, dep.station)
-		// t.ok(await findStation(dep.station.id)) // todo
+		if (!await findStation(dep.station.id)) {
+			console.error('unknown station', dep.station.id, dep.station.name)
+		}
 		t.ok(isValidWhen(dep.when))
 	}
 
