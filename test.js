@@ -1,7 +1,6 @@
 'use strict'
 
-const test = require('tape')
-require('tape-promise').default(test)
+const test = require('tape-promise').default(require('tape'))
 const isRoughlyEqual = require('is-roughly-equal')
 const stations = require('db-stations')
 const moment = require('moment-timezone')
@@ -196,7 +195,7 @@ test('Berlin Jungfernheide to ATZE Musiktheater', async (t) => {
 	// Berlin Jungfernheide to ATZE Musiktheater
 	const journeys = await hafas.journeys('8011167', {
 		type: 'poi', name: 'ATZE Musiktheater', id: '990363204',
-		latitude: 52.543333, longitude: 13.351686
+		latitude: 52.542399, longitude: 13.350402
 	}, {when})
 
 	t.ok(Array.isArray(journeys))
@@ -212,8 +211,8 @@ test('Berlin Jungfernheide to ATZE Musiktheater', async (t) => {
 	const d = part.destination
 	assertValidPoi(t, d)
 	t.equal(d.name, 'ATZE Musiktheater')
-	t.ok(isRoughlyEqual(.0001, d.coordinates.latitude, 52.543333))
-	t.ok(isRoughlyEqual(.0001, d.coordinates.longitude, 13.351686))
+	t.ok(isRoughlyEqual(.0001, d.coordinates.latitude, 52.542399))
+	t.ok(isRoughlyEqual(.0001, d.coordinates.longitude, 13.350402))
 
 	t.end()
 })
