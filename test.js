@@ -28,7 +28,6 @@ const assertValidStation = (t, s) => {
 	t.ok(s.coordinates)
 	t.equal(typeof s.coordinates.latitude, 'number')
 	t.equal(typeof s.coordinates.longitude, 'number')
-	if ('platform' in s) t.equal(typeof s.platform, 'string')
 }
 
 const assertValidPoi = (t, p) => {
@@ -147,10 +146,12 @@ test('Berlin Jungfernheide to München Hbf', async (t) => {
 		assertValidStation(t, part.origin)
 		t.ok(await findStation(part.origin.id)) // todo
 		t.ok(isValidWhen(part.departure))
+		t.equal(typeof part.departurePlatform, 'string')
 
 		assertValidStation(t, part.destination)
 		t.ok(await findStation(part.destination.id)) // todo
 		t.ok(isValidWhen(part.arrival))
+		t.equal(typeof part.arrivalPlatform, 'string')
 
 		assertValidLine(t, part.line)
 

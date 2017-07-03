@@ -84,7 +84,6 @@ With `from = '8011167'` and `to = '8011113'`, the response looks like this:
 			name: 'Berlin Jungfernheide (S)',
 			latitude: 52.530372,
 			longitude: 13.299442,
-			platform: '1',
 			products: {
 				nationalExp: false,
 				national: false,
@@ -98,13 +97,13 @@ With `from = '8011167'` and `to = '8011113'`, the response looks like this:
 				taxi: false
 			}
 		},
+		departurePlatform: '1',
 		to: {
 			type: 'station',
 			id: 8089073,
 			name: 'Berlin Südkreuz (S)',
 			latitude: 52.476131,
 			longitude: 13.365144,
-			platform: '3',
 			products: {
 				nationalExp: false,
 				national: false,
@@ -118,6 +117,7 @@ With `from = '8011167'` and `to = '8011113'`, the response looks like this:
 				taxi: false
 			}
 		},
+		arrivalPlatform: '3',
 		start: 2016-07-29T23:48:00.000Z,
 		end: 2016-07-30T00:33:00.000Z,
 		product: {
