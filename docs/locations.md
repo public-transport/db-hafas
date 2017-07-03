@@ -16,31 +16,39 @@ With `opt`, you can override the default options, which look like this:
 
 ## Response
 
-With `query = 'Berlin Jungfernheide'`, the response looks like this:
+With `query = 'Berlin Jungfernheide'`, the response may look like this:
 
 ```js
 [
 	{
 		type: 'station',
-		id: 8011167,
+		id: '8011167',
 		name: 'Berlin Jungfernheide',
-		latitude: 52.530273,
-		longitude: 13.299433
+		coordinates: {latitude: 52.530408, longitude: 13.299424},
+		products: {
+			nationalExp: false,
+			national: false,
+			regionalExp: false,
+			regional: true,
+			suburban: true,
+			bus: true,
+			ferry: false,
+			subway: true,
+			tram: false,
+			taxi: false
+		}
 	},
 	// …
 	{
 		type: 'address',
 		name: 'Berlin - Charlottenburg, Am Bahnhof Jungfernheide',
-		latitude: 52.531837,
-		longitude: 13.309348
+		coordinates: {latitude: 52.531837, longitude: 13.309348}
 	},
-	// …
 	{
 		type: 'poi',
-		id: 990381196,
+		id: '990381196',
 		name: 'Berlin, Freibad Jungfernheide (Sport)',
-		latitude: 52.543999,
-		longitude: 13.272897
+		coordinates: {latitude: 52.543999, longitude: 13.272897}
 	}
 ]
 ```
