@@ -31,124 +31,218 @@ const hafas = require('db-hafas')
 As an example, we will search for a route from *Berlin Jungfernheide* to *München Hbf*. To get the station ids, use [`locations(query, [opt])`](docs/locations.md).
 
 ```javascript
-client.routes(8011167, 8000261)
-.then((routes) => console.log(routes[0]))
+client.journeys('8011167', '8000261')
+.then((journeys) => console.log(journeys[0]))
+.catch(console.error)
 ```
 
-The output will have the following structure:
+The output will be in the [*Friendly Public Transport Format*](https://github.com/public-transport/friendly-public-transport-format):
 
 ```javascript
 {
+	parts: [ {
+		id: '1|202507|0|80|13072017',
+		origin: {
+			type: 'station',
+			id: '8011167',
+			name: 'Berlin Jungfernheide',
+			coordinates: {latitude: 52.530408, longitude: 13.299424},
+			products: {
+				nationalExp: false,
+				national: false,
+				regionalExp: false,
+				regional: true,
+				suburban: true,
+				bus: true,
+				ferry: false,
+				subway: true,
+				tram: false,
+				taxi: false
+			}
+		},
+		destination: {
+			type: 'station',
+			id: '8010404',
+			name: 'Berlin-Spandau',
+			coordinates: {latitude: 52.533787, longitude: 13.200965},
+			products: {
+				nationalExp: true,
+				national: true,
+				regionalExp: true,
+				regional: true,
+				suburban: true,
+				bus: true,
+				ferry: false,
+				subway: true,
+				tram: false,
+				taxi: false
+			}
+		},
+		departure: '2017-07-13T17:21:00+02:00', // ISO 8601 string
+		departurePlatform: '4',
+		arrival: '2017-07-13T17:25:00+02:00', // ISO 8601 string
+		arrivalPlatform: '3',
+		delay: 0, // in seconds
+		line: {
+			type: 'line',
+			name: 'RB 18524',
+			class: 8,
+			productCode: 3,
+			productName: 'RB',
+			mode: 'train',
+			product: 'regional'
+		},
+		direction: 'Nauen'
+	}, {
+		id: '1|187152|0|80|13072017',
+		origin: {
+			type: 'station',
+			id: '8010404',
+			name: 'Berlin-Spandau',
+			coordinates: {latitude: 52.533787, longitude: 13.200965},
+			products: {
+				nationalExp: true,
+				national: true,
+				regionalExp: true,
+				regional: true,
+				suburban: true,
+				bus: true,
+				ferry: false,
+				subway: true,
+				tram: false,
+				taxi: false
+			}
+		},
+		destination: {
+			type: 'station',
+			id: '8003200',
+			name: 'Kassel-Wilhelmshöhe',
+			coordinates: {latitude: 51.312998, longitude: 9.446845},
+			products: {
+				nationalExp: true,
+				national: true,
+				regionalExp: true,
+				regional: true,
+				suburban: true,
+				bus: true,
+				ferry: false,
+				subway: false,
+				tram: true,
+				taxi: true
+			}
+		},
+		departure: '2017-07-13T17:45:00+02:00', // ISO 8601 string
+		departurePlatform: '4',
+		arrival: '2017-07-13T20:03:00+02:00', // ISO 8601 string
+		arrivalPlatform: '2',
+		delay: 0, // in seconds
+		line: {
+			type: 'line',
+			name: 'ICE 1093',
+			class: 1,
+			productCode: 0,
+			productName: 'ICE',
+			mode: 'train',
+			product: 'nationalExp'
+		},
+		direction: 'Stuttgart Hbf'
+	}, {
+		id: '1|199821|0|80|13072017',
+		origin: {
+			type: 'station',
+			id: '8003200',
+			name: 'Kassel-Wilhelmshöhe',
+			coordinates: {latitude: 51.312998, longitude: 9.446845},
+			products: {
+				nationalExp: true,
+				national: true,
+				regionalExp: true,
+				regional: true,
+				suburban: true,
+				bus: true,
+				ferry: false,
+				subway: false,
+				tram: true,
+				taxi: true
+			}
+		},
+		destination: {
+			type: 'station',
+			id: '8000261',
+			name: 'München Hbf',
+			coordinates: {latitude: 48.140364, longitude: 11.558735},
+			products: {
+				nationalExp: true,
+				national: true,
+				regionalExp: true,
+				regional: true,
+				suburban: true,
+				bus: true,
+				ferry: false,
+				subway: true,
+				tram: true,
+				taxi: false
+			}
+		},
+		departure: '2017-07-13T20:27:00+02:00', // ISO 8601 string
+		departurePlatform: '1',
+		arrival: '2017-07-13T23:46:00+02:00', // ISO 8601 string
+		arrivalPlatform: '19',
+		delay: 0, // in seconds
+		line: {
+			type: 'line',
+			name: 'ICE 885',
+			class: 1,
+			productCode: 0,
+			productName: 'ICE',
+			mode: 'train',
+			product: 'nationalExp'
+		},
+		direction: 'München Hbf'
+	} ],
 	// taken from first part
-	start: 2016-07-31T10:00:00.000Z, // Date object
-	from: {
+	origin: {
 		type: 'station',
-		id: 8089100,
-		name: 'Berlin Jungfernheide (S)',
-		latitude: 52.530372,
-		longitude: 13.299442,
+		id: '8011167',
+		name: 'Berlin Jungfernheide',
+		coordinates: {latitude: 52.530408, longitude: 13.299424},
 		products: {
 			nationalExp: false,
 			national: false,
 			regionalExp: false,
 			regional: true,
 			suburban: true,
-			bus: false,
+			bus: true,
 			ferry: false,
-			subway: false,
+			subway: true,
 			tram: false,
 			taxi: false
 		}
 	},
-
 	// taken from last part
-	end: 2016-07-31T16:41:00.000Z, // Date object
-	to: {
+	destination: {
 		type: 'station',
-		id: 8000261,
+		id: '8000261',
 		name: 'München Hbf',
-		latitude: 48.140229,
-		longitude: 11.558339,
-		products: /* … */
-	},
-
-	parts: [
-		{
-			start: 2016-07-31T10:00:00.000Z, // Date object
-			from: {
-				type: 'station',
-				id: 8089100,
-				name: 'Berlin Jungfernheide (S)',
-				latitude: 52.530372,
-				longitude: 13.299442,
-				products: /* … */
-			},
-			end: 2016-07-31T10:20:00.000Z, // Date object
-			to: {
-				type: 'station',
-				id: 8089073,
-				name: 'Berlin Südkreuz (S)',
-				latitude: 52.476131,
-				longitude: 13.365144,
-				products: /* … */
-			},
-			direction: 'Ringbahn <-',
-			product: {
-				name: 'S 42',
-				nr: 42,
-				class: 16,
-				productCode: 4,
-				productName: 's'
-			}
-		}, {
-			start: 2016-07-31T10:20:00.000Z, // Date object
-			from: {
-				type: 'station',
-				id: 8089073,
-				name: 'Berlin Südkreuz (S)',
-				latitude: 52.476131,
-				longitude: 13.365144,
-				products: /* … */
-			},
-			end: 2016-07-31T10:27:00.000Z, // Date object
-			to: {
-				type: 'station',
-				id: 8011113,
-				name: 'Berlin Südkreuz',
-				latitude: 52.475043,
-				longitude: 13.365315,
-				products: /* … */
-			},
-			type: 'walking'
-		}, {
-			start: 2016-07-31T10:34:00.000Z, // Date object
-			from: {
-				type: 'station',
-				id: 8011113,
-				name: 'Berlin Südkreuz',
-				latitude: 52.475043,
-				longitude: 13.365315,
-				products: /* … */
-			},
-			end: 2016-07-31T16:41:00.000Z, // Date object
-			to: {
-				type: 'station',
-				id: 8000261,
-				name: 'München Hbf',
-				latitude: 48.140229,
-				longitude: 11.558339,
-				products: /* … */
-			},
-			direction: 'Innsbruck Hbf',
-			product: {
-				name: 'ICE 1209',
-				nr: 1209,
-				class: 1,
-				productCode: 0,
-				productName: 'ICE'
-			}
+		coordinates: {latitude: 48.140364, longitude: 11.558735},
+		products: {
+			nationalExp: true,
+			national: true,
+			regionalExp: true,
+			regional: true,
+			suburban: true,
+			bus: true,
+			ferry: false,
+			subway: true,
+			tram: true,
+			taxi: false
 		}
-	]
+	},
+	// taken from first part
+	departure: '2017-07-13T17:21:00+02:00', // ISO 8601 string
+	// taken from last part
+	arrival: '2017-07-13T23:46:00+02:00', // ISO 8601 string
+	price: {amount: 145}
 }
 ```
 
