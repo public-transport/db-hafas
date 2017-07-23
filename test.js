@@ -204,8 +204,8 @@ test('Berlin Jungfernheide to Torfstraße 17', async (t) => {
 test('Berlin Jungfernheide to ATZE Musiktheater', async (t) => {
 	// Berlin Jungfernheide to ATZE Musiktheater
 	const journeys = await hafas.journeys('8011167', {
-		type: 'poi', name: 'ATZE Musiktheater', id: '990363204',
-		latitude: 52.542399, longitude: 13.350402
+		type: 'poi', name: 'ATZE Musiktheater', id: '991598902',
+		latitude: 52.542417, longitude: 13.350437
 	}, {when})
 
 	t.ok(Array.isArray(journeys))
