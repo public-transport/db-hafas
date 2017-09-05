@@ -2,7 +2,7 @@
 
 const test = require('tape-promise').default(require('tape'))
 const isRoughlyEqual = require('is-roughly-equal')
-const stations = require('db-stations')
+const stations = require('db-stations').full
 const moment = require('moment-timezone')
 const hafas = require('.')
 
@@ -10,15 +10,17 @@ const hafas = require('.')
 
 // helpers
 
-const findStation = (id) =>
-	new Promise((yay, nay) => {
+const findStation = (id) => {
+	return new Promise((yay, nay) => {
 		stations()
 		.on('error', nay)
 		.on('data', (s) => {
-			if ((s.id + '') === id) yay(s)
+			if (s.id === id) yay(s)
+			if (s.additionalIds && s.additionalIds.some(_ => _ === id)) yay(s)
 		})
 		.on('end', () => yay())
 	})
+}
 
 const assertValidStation = (t, s) => {
 	t.equal(s.type, 'station')
