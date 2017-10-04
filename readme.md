@@ -23,7 +23,7 @@ npm install db-hafas
 const hafas = require('db-hafas')
 ```
 
-- [`routes(from, to, [opt])`](docs/routes.md) to get routes between locations
+- [`journeys(from, to, [opt])`](docs/journeys.md) to get journeys between locations
 - [`departures(station, [opt])`](docs/departures.md) to query the next departures at a station
 - [`nearby(latitude, longitude, [opt])`](docs/nearby.md) to show stations & POIs around
 - [`locations(query, [opt])`](docs/locations.md) to find stations, POIs and addresses
