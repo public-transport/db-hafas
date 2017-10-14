@@ -3,7 +3,7 @@
 const test = require('tape-promise').default(require('tape'))
 const isRoughlyEqual = require('is-roughly-equal')
 const stations = require('db-stations').full
-const moment = require('moment-timezone')
+const floor = require('floordate')
 const hafas = require('.')
 
 
@@ -111,9 +111,12 @@ const assertIsMünchenHbf = (s) => {
 
 // fixtures
 
-const when = moment(Date.now()).tz('Europe/Berlin').startOf('day').hours(8).toDate()
 const minute = 60 * 1000
 const hour = 60 * minute
+const day = 24 * hour
+const week = 7 * day
+// next Monday
+const when = new Date(+floor(new Date(), 'week') + week + 10 * hour)
 
 const isValidWhen = (w) => {
 	const d = new Date(w)
