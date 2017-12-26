@@ -4,9 +4,7 @@
 	"version": "1.1.0",
 	"main": "index.js",
 	"files": [
-		"index.js",
-		"lib/*",
-		"docs/*"
+		"index.js"
 	],
 	"author": "Jannis R <mail@jannisr.de>",
 	"homepage": "https://github.com/derhuerst/db-hafas",
@@ -27,7 +25,7 @@
 		"node": ">=6"
 	},
 	"dependencies": {
-		"hafas-client": "^1.2.5"
+		"hafas-client": "^2.0.0-alpha.5"
 	},
 	"devDependencies": {
 		"db-stations": "^1.0.0",
