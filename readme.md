@@ -35,7 +35,7 @@ The output will be in the [*Friendly Public Transport Format*](https://github.co
 
 ```javascript
 [ {
-	parts: [ {
+	legs: [ {
 		id: '1|98397|0|81|26122017',
 		origin: {
 			type: 'station',
@@ -159,7 +159,7 @@ The output will be in the [*Friendly Public Transport Format*](https://github.co
 		},
 		direction: 'München Hbf'
 	} ],
-	// taken from the first part
+	// taken from the first leg
 	origin: {
 		type: 'station',
 		id: '8011167',
