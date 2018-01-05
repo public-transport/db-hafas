@@ -2,7 +2,9 @@
 
 **A client for the German Railways (DB).** It acts as a consistent and straightforward interface on top of a verbose API.
 
-This project is basically a thin wrapper around [`hafas-client`](https://github.com/derhuerst/hafas-client/tree/any-endpoint#hafas-client). [Its docs](https://github.com/derhuerst/hafas-client/tree/any-endpoint/docs) document the API in general.
+This project is actually a thin wrapper around [`hafas-client`](https://github.com/derhuerst/hafas-client#hafas-client). [Its docs](https://github.com/derhuerst/hafas-client/tree/master/docs) document the API in general.
+
+![db-rest architecture diagram](https://rawgit.com/derhuerst/db-rest/master/architecture.svg)
 
 [![npm version](https://img.shields.io/npm/v/db-hafas.svg)](https://www.npmjs.com/package/db-hafas)
 [![dependency status](https://img.shields.io/david/derhuerst/db-hafas.svg)](https://david-dm.org/derhuerst/db-hafas)
@@ -17,13 +19,18 @@ npm install db-hafas
 ```
 
 
+## API
+
+Check [the docs for `hafas-client`](https://github.com/derhuerst/hafas-client/tree/master/docs) as well as [the DB-specific customisations](https://github.com/derhuerst/hafas-client/blob/master/p/db/readme.md).
+
+
 ## Getting Started
 
 ```javascript
 const hafas = require('db-hafas')
 ```
 
-As an example, we will search for a route from *Berlin Jungfernheide* to *München Hbf*. To get the station ids, use [`locations(query, [opt])`](https://github.com/derhuerst/hafas-client/blob/any-endpoint/docs/locations.md).
+As an example, we will search for a route from *Berlin Jungfernheide* to *München Hbf*. To get the station ids, use [`locations(query, [opt])`](https://github.com/derhuerst/hafas-client/blob/master/docs/locations.md).
 
 ```javascript
 client.journeys('8011167', '8000261')
@@ -31,7 +38,7 @@ client.journeys('8011167', '8000261')
 .catch(console.error)
 ```
 
-The output will be in the [*Friendly Public Transport Format*](https://github.com/public-transport/friendly-public-transport-format):
+The output will be a [`journey` object in the *Friendly Public Transport Format* `1.0.1` format](https://github.com/public-transport/friendly-public-transport-format/tree/1.0.1/spec#journey):
 
 ```javascript
 [ {
@@ -94,7 +101,12 @@ The output will be in the [*Friendly Public Transport Format*](https://github.co
 			mode: 'train',
 			product: 'regional',
 			class: 8,
-			productCode: 3
+			productCode: 3,
+			operator: {
+				type: 'operator',
+				id: 'db-regio-ag-nordost',
+				name: 'DB Regio AG Nordost'
+			}
 		},
 		direction: 'Ludwigsfelde'
 	}, {
@@ -155,7 +167,12 @@ The output will be in the [*Friendly Public Transport Format*](https://github.co
 			mode: 'train',
 			product: 'nationalExp',
 			class: 1,
-			productCode: 0
+			productCode: 0,
+			operator: {
+				type: 'operator',
+				id: 'nahreisezug',
+				name: 'Nahreisezug'
+			}
 		},
 		direction: 'München Hbf'
 	} ],
@@ -217,6 +234,7 @@ The output will be in the [*Friendly Public Transport Format*](https://github.co
 ## Similar Projects
 
 - [Fahrplan.js](https://github.com/pbock/fahrplan) – "A JavaScript client for Deutsche Bahn's timetable API"
+- [db-prices](https://github.com/juliuste/db-prices) – Find the cheapest routes using the DB Sparpreise API.
 - [db-stations](https://github.com/derhuerst/db-stations) – An offline list of all DB stations.
 - [vbb-stations](https://github.com/derhuerst/vbb-stations) – A client for the Berlin & Brandenburg public transport service (VBB).
 
