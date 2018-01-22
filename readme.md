@@ -21,7 +21,7 @@ npm install db-hafas
 
 ## API
 
-Check [the docs for `hafas-client`](https://github.com/derhuerst/hafas-client/tree/master/docs) as well as [the DB-specific customisations](https://github.com/derhuerst/hafas-client/blob/master/p/db/readme.md).
+Check [the docs for `hafas-client`](https://github.com/derhuerst/hafas-client/tree/master/docs) as well as [its DB-specific customisations](https://github.com/derhuerst/hafas-client/blob/master/p/db/readme.md).
 
 
 ## Getting Started
