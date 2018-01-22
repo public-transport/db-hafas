@@ -4,7 +4,8 @@
 	"version": "2.0.0",
 	"main": "index.js",
 	"files": [
-		"index.js"
+		"index.js",
+		"throttle.js"
 	],
 	"author": "Jannis R <mail@jannisr.de>",
 	"homepage": "https://github.com/derhuerst/db-hafas",
@@ -25,7 +26,7 @@
 		"node": ">=6"
 	},
 	"dependencies": {
-		"hafas-client": "^2.0.0"
+		"hafas-client": "^2.2.1"
 	},
 	"scripts": {
 		"test": "node example.js >/dev/null",
