@@ -2,7 +2,7 @@
 
 **A client for the German Railways (DB).** It acts as a consistent and straightforward interface on top of a verbose API.
 
-This project is actually a thin wrapper around [`hafas-client`](https://github.com/derhuerst/hafas-client#hafas-client). [Its docs](https://github.com/derhuerst/hafas-client/tree/master/docs) document the API in general.
+This project is actually a thin wrapper around [`hafas-client`](https://github.com/public-transport/hafas-client#hafas-client). [Its docs](https://github.com/public-transport/hafas-client/tree/master/docs) document the API in general.
 
 ![db-rest architecture diagram](https://rawgit.com/derhuerst/db-rest/master/architecture.svg)
 
@@ -10,6 +10,7 @@ This project is actually a thin wrapper around [`hafas-client`](https://github.c
 [![dependency status](https://img.shields.io/david/derhuerst/db-hafas.svg)](https://david-dm.org/derhuerst/db-hafas)
 ![ISC-licensed](https://img.shields.io/github/license/derhuerst/db-hafas.svg)
 [![chat on gitter](https://badges.gitter.im/derhuerst.svg)](https://gitter.im/derhuerst)
+[![support me on Patreon](https://img.shields.io/badge/support%20me-on%20patreon-fa7664.svg)](https://patreon.com/derhuerst)
 
 
 ## Installing
@@ -21,7 +22,7 @@ npm install db-hafas
 
 ## API
 
-Check [the docs for `hafas-client`](https://github.com/derhuerst/hafas-client/tree/master/docs) as well as [its DB-specific customisations](https://github.com/derhuerst/hafas-client/blob/master/p/db/readme.md).
+Check [the docs for `hafas-client`](https://github.com/public-transport/hafas-client/tree/master/docs) as well as [its DB-specific customisations](https://github.com/public-transport/hafas-client/blob/master/p/db/readme.md).
 
 
 ## Getting Started
@@ -30,15 +31,15 @@ Check [the docs for `hafas-client`](https://github.com/derhuerst/hafas-client/tr
 const hafas = require('db-hafas')
 ```
 
-As an example, we will search for a route from *Berlin Jungfernheide* to *München Hbf*. To get the station ids, use [`locations(query, [opt])`](https://github.com/derhuerst/hafas-client/blob/master/docs/locations.md).
+As an example, we will search for a route from *Berlin Jungfernheide* to *München Hbf*. To get the station IDs, use [`locations(query, [opt])`](https://github.com/public-transport/hafas-client/blob/master/docs/locations.md).
 
 ```javascript
-client.journeys('8011167', '8000261')
+client.journeys('8011167', '8000261', {results: 1})
 .then((journeys) => console.log(journeys[0]))
 .catch(console.error)
 ```
 
-The output will be a [`journey` object in the *Friendly Public Transport Format* `1.0.1` format](https://github.com/public-transport/friendly-public-transport-format/tree/1.0.1/spec#journey):
+The output will be an array of [`journey` objects in the *Friendly Public Transport Format* `1.0.1` format](https://github.com/public-transport/friendly-public-transport-format/tree/1.0.1/spec#journey):
 
 ```javascript
 [ {
