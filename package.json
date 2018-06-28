@@ -1,7 +1,7 @@
 {
 	"name": "db-hafas",
 	"description": "JavaScript client for the DB HAFAS API.",
-	"version": "3.0.0-alpha.9",
+	"version": "3.0.0-alpha.10",
 	"main": "index.js",
 	"files": [
 		"index.js",
@@ -26,7 +26,7 @@
 		"node": ">=6"
 	},
 	"dependencies": {
-		"hafas-client": "^3.0.0-alpha.14"
+		"hafas-client": "^3.0.0-alpha.15"
 	},
 	"scripts": {
 		"test": "env NODE_ENV=dev node example.js >/dev/null",
