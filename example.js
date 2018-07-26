@@ -1,7 +1,8 @@
 'use strict'
 
-const hafas = require('.')
+const createHafas = require('.')
 
+const hafas = createHafas('db-hafas-example')
 
 // Berlin Jungfernheide to München Hbf
 hafas.journeys('8011167', '8000261', {results: 1})

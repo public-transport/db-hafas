@@ -28,13 +28,15 @@ Check [the docs for `hafas-client`](https://github.com/public-transport/hafas-cl
 ## Getting Started
 
 ```javascript
-const hafas = require('db-hafas')
+const createHafas = require('db-hafas')
+
+const hafas = createHafas('my-awesome-program')
 ```
 
 As an example, we will search for a route from *Berlin Jungfernheide* to *München Hbf*. To get the station IDs, use [`locations(query, [opt])`](https://github.com/public-transport/hafas-client/blob/master/docs/locations.md).
 
 ```javascript
-client.journeys('8011167', '8000261', {results: 1})
+hafas.journeys('8011167', '8000261', {results: 1})
 .then((journeys) => console.log(journeys[0]))
 .catch(console.error)
 ```

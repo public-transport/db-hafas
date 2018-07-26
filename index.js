@@ -3,6 +3,6 @@
 const createClient = require('hafas-client')
 const dbProfile = require('hafas-client/p/db')
 
-const client = createClient(dbProfile)
+const createHafas = (userAgent) => createClient(dbProfile, userAgent)
 
-module.exports = client
+module.exports = createHafas
