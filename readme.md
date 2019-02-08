@@ -239,7 +239,8 @@ The output will be an array of [`journey` objects in the *Friendly Public Transp
 - [Fahrplan.js](https://github.com/pbock/fahrplan) – "A JavaScript client for Deutsche Bahn's timetable API"
 - [db-prices](https://github.com/juliuste/db-prices) – Find the cheapest routes using the DB Sparpreise API.
 - [db-stations](https://github.com/derhuerst/db-stations) – An offline list of all DB stations.
-- [vbb-stations](https://github.com/derhuerst/vbb-stations) – A client for the Berlin & Brandenburg public transport service (VBB).
+
+Also check [`hafas-client`'s related libs](https://github.com/public-transport/hafas-client/blob/master/readme.md#related).
 
 
 ## Contributing

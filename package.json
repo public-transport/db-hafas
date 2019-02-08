@@ -1,7 +1,7 @@
 {
 	"name": "db-hafas",
 	"description": "JavaScript client for the DB HAFAS API.",
-	"version": "3.0.1",
+	"version": "3.1.0",
 	"main": "index.js",
 	"files": [
 		"index.js",
