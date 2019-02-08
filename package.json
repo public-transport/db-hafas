@@ -5,7 +5,8 @@
 	"main": "index.js",
 	"files": [
 		"index.js",
-		"throttle.js"
+		"throttle.js",
+		"retry.js"
 	],
 	"author": "Jannis R <mail@jannisr.de>",
 	"homepage": "https://github.com/derhuerst/db-hafas",
@@ -26,7 +27,7 @@
 		"node": ">=6"
 	},
 	"dependencies": {
-		"hafas-client": "^3.0.0"
+		"hafas-client": "^3.9.1"
 	},
 	"scripts": {
 		"test": "env NODE_ENV=dev node example.js >/dev/null",
