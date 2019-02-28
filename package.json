@@ -27,7 +27,7 @@
 		"node": ">=6"
 	},
 	"dependencies": {
-		"hafas-client": "^3.9.1"
+		"hafas-client": "^4.0.0"
 	},
 	"scripts": {
 		"test": "env NODE_ENV=dev node example.js >/dev/null",
