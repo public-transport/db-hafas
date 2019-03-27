@@ -1,8 +1,8 @@
 'use strict'
 
 const createHafas = require('.')
-// const createThrottledHafas = require('.')
-// const createHafasWithRetry = require('.')
+// const createThrottledHafas = require('./throttle')
+// const createHafasWithRetry = require('./retry')
 
 const hafas = createHafas('db-hafas-example')
 // const hafas = createThrottledHafas('db-hafas-example', 5, 100)
@@ -26,6 +26,11 @@ hafas.journeys('8011167', '8000261', {results: 1})
 // 	const leg = journeys[0].legs[0]
 // 	return hafas.trip(leg.tripId, leg.line.name, {polyline: true})
 // })
+
 .then((data) => {
-	console.log(require('util').inspect(data, {depth: null}))
-}, console.error)
+	console.log(require('util').inspect(data, {depth: null, colors: true}))
+})
+.catch((err) => {
+	console.error(err)
+	process.exitCode = 1
+})
