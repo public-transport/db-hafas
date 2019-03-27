@@ -2,7 +2,7 @@
 
 **A client for the German Railways (DB).** It acts as a consistent and straightforward interface on top of a verbose API.
 
-This project is actually a thin wrapper around [`hafas-client`](https://github.com/public-transport/hafas-client#hafas-client). [Its docs](https://github.com/public-transport/hafas-client/tree/master/docs) document the API in general.
+This project is actually a thin wrapper around [`hafas-client@4`](https://github.com/public-transport/hafas-client/tree/4#hafas-client). [Its docs](https://github.com/public-transport/hafas-client/tree/4/docs) document the API in general.
 
 ![db-rest architecture diagram](https://rawgit.com/derhuerst/db-rest/master/architecture.svg)
 
@@ -22,7 +22,7 @@ npm install db-hafas
 
 ## API
 
-Check [the docs for `hafas-client`](https://github.com/public-transport/hafas-client/tree/master/docs) as well as [its DB-specific customisations](https://github.com/public-transport/hafas-client/blob/master/p/db/readme.md).
+Check [the docs for `hafas-client@4`](https://github.com/public-transport/hafas-client/tree/4/docs) as well as [its DB-specific customisations](https://github.com/public-transport/hafas-client/blob/4/p/db/readme.md).
 
 
 ## Getting Started
@@ -33,31 +33,34 @@ const createHafas = require('db-hafas')
 const hafas = createHafas('my-awesome-program')
 ```
 
-As an example, we will search for a route from *Berlin Jungfernheide* to *München Hbf*. To get the station IDs, use [`locations(query, [opt])`](https://github.com/public-transport/hafas-client/blob/master/docs/locations.md).
+As an example, we will search for a route from *Berlin Jungfernheide* to *München Hbf*. To get the station IDs, use [`locations(query, [opt])`](https://github.com/public-transport/hafas-client/blob/4/docs/locations.md).
 
 ```javascript
+// Berlin Jungfernheide to München Hbf
 hafas.journeys('8011167', '8000261', {results: 1})
-.then((journeys) => console.log(journeys[0]))
+.then(({journeys}) => console.log(journeys[0]))
 .catch(console.error)
 ```
 
-The output will be an array of [`journey` objects in the *Friendly Public Transport Format* `1.0.1` format](https://github.com/public-transport/friendly-public-transport-format/tree/1.0.1/spec#journey):
+The output will be an array of [`journey` objects in the *Friendly Public Transport Format* `1.2.1` format](https://github.com/public-transport/friendly-public-transport-format/tree/1.2.1/spec#journey):
 
 ```javascript
 [ {
+	type: 'journey',
 	legs: [ {
-		id: '1|98397|0|81|26122017',
+		tripId: '1|300793|27|80|27032019',
 		origin: {
-			type: 'station',
-			id: '8011167',
-			name: 'Berlin Jungfernheide',
+			type: 'stop',
+			id: '8089100',
+			name: 'Berlin Jungfernheide (S)',
 			location: {
 				type: 'location',
+				id: '8089100',
 				latitude: 52.530408,
 				longitude: 13.299424
 			},
 			products: {
-				nationalExp: false,
+				nationalExpress: false,
 				national: false,
 				regionalExp: false,
 				regional: true,
@@ -67,169 +70,79 @@ The output will be an array of [`journey` objects in the *Friendly Public Transp
 				subway: true,
 				tram: false,
 				taxi: false
-			}
-		},
-		departure: '2017-12-26T05:57:00.000+01:00', // ISO 8601 string
-		departurePlatform: '3',
-		delay: 0, // in seconds
-		destination: {
-			type: 'station',
-			id: '8098160',
-			name: 'Berlin Hbf (tief)',
-			location: {
-				type: 'location',
-				latitude: 52.52585,
-				longitude: 13.368883
 			},
-			products: {
-				nationalExp: true,
-				national: true,
-				regionalExp: true,
-				regional: true,
-				suburban: true,
-				bus: true,
-				ferry: false,
-				subway: true,
-				tram: true,
-				taxi: false
+			station: {
+				type: 'station',
+				id: '8011167',
+				name: 'Berlin Jungfernheide',
+				location: { /* … */ },
+				products: { /* … */ }
 			}
 		},
-		arrival: '2017-12-26T06:01:00.000+01:00', // ISO 8601 string
-		arrivalPlatform: '4',
+		departure: '2019-03-27T14:10:00.000+01:00',
+		departureDelay: 0,
+		departurePlatform: '6',
+		destination: {
+			type: 'stop',
+			id: '8089073',
+			name: 'Berlin Südkreuz (S)',
+			location: { /* … */ },
+			products: { /* … */ },
+			station: { /* … */ }
+		},
+		arrival: '2019-03-27T14:30:00.000+01:00',
+		arrivalDelay: 0,
+		arrivalPlatform: '12',
+		direction: 'Berlin Südkreuz (S)',
 		line: {
 			type: 'line',
-			id: '56552',
-			name: 'RE 56552',
+			id: 's-42',
+			fahrtNr: '42133',
+			name: 'S 42',
 			public: true,
 			mode: 'train',
-			product: 'regional',
-			class: 8,
-			productCode: 3,
-			operator: {
-				type: 'operator',
-				id: 'db-regio-ag-nordost',
-				name: 'DB Regio AG Nordost'
-			}
+			product: 'suburban',
+			operator: {type: 'operator', id: 's-bahn-berlin', name: 'S-Bahn Berlin'}
 		},
-		direction: 'Ludwigsfelde'
+		cycle: {min: 300, max: 300, nr: 25}
 	}, {
-		id: '1|72980|0|81|26122017',
-		origin: {
-			type: 'station',
-			id: '8098160',
-			name: 'Berlin Hbf (tief)',
-			location: {
-				type: 'location',
-				latitude: 52.52585,
-				longitude: 13.368883
-			},
-			products: {
-				nationalExp: true,
-				national: true,
-				regionalExp: true,
-				regional: true,
-				suburban: true,
-				bus: true,
-				ferry: false,
-				subway: true,
-				tram: true,
-				taxi: false
-			}
-		},
-		departure: '2017-12-26T06:30:00.000+01:00', // ISO 8601 string
-		departurePlatform: '1',
+		origin: { /* … */ },
+		departure: '2019-03-27T14:30:00.000+01:00',
+		destination: { /* … */ },
+		arrival: '2019-03-27T14:37:00.000+01:00',
+		public: true,
+		walking: true,
+		distance: 622
+	}, {
+		tripId: '1|245684|0|80|27032019',
+		origin: { /* … */ },
+		departure: '2019-03-27T14:37:00.000+01:00',
+		departureDelay: 0,
+		departurePlatform: '3',
 		destination: {
-			type: 'station',
+			type: 'stop',
 			id: '8000261',
 			name: 'München Hbf',
-			location: {
-				type: 'location',
-				latitude: 48.140364,
-				longitude: 11.558735
-			},
-			products: {
-				nationalExp: true,
-				national: true,
-				regionalExp: true,
-				regional: true,
-				suburban: true,
-				bus: true,
-				ferry: false,
-				subway: true,
-				tram: true,
-				taxi: false
-			}
+			location: { /* … */ },
+			products: { /* … */ }
 		},
-		arrival: '2017-12-26T11:02:00.000+01:00', // ISO 8601 string
-		arrivalPlatform: '22',
+		arrival: '2019-03-27T19:06:00.000+01:00',
+		arrivalDelay: 0,
+		arrivalPlatform: '18',
+		direction: 'München Hbf'
 		line: {
 			type: 'line',
-			id: '1505',
-			name: 'ICE 1505',
+			id: 'ice-1601',
+			fahrtNr: '1601',
+			name: 'ICE 1601',
 			public: true,
 			mode: 'train',
-			product: 'nationalExp',
-			class: 1,
-			productCode: 0,
-			operator: {
-				type: 'operator',
-				id: 'nahreisezug',
-				name: 'Nahreisezug'
-			}
+			product: 'nationalExpress',
+			operator: { /* … */ }
 		},
-		direction: 'München Hbf'
 	} ],
-	// taken from the first leg
-	origin: {
-		type: 'station',
-		id: '8011167',
-		name: 'Berlin Jungfernheide',
-		location: {
-			type: 'location',
-			latitude: 52.530408,
-			longitude: 13.299424
-		},
-		products: {
-			nationalExp: false,
-			national: false,
-			regionalExp: false,
-			regional: true,
-			suburban: true,
-			bus: true,
-			ferry: false,
-			subway: true,
-			tram: false,
-			taxi: false
-		}
-	},
-	departure: '2017-12-26T05:57:00.000+01:00', // ISO 8601 string
-	// taken from the last part
-	destination: {
-		type: 'station',
-		id: '8000261',
-		name: 'München Hbf',
-		location: {
-			type: 'location',
-			latitude: 48.140364,
-			longitude: 11.558735
-		},
-		products: {
-			nationalExp: true,
-			national: true,
-			regionalExp: true,
-			regional: true,
-			suburban: true,
-			bus: true,
-			ferry: false,
-			subway: true,
-			tram: true,
-			taxi: false
-		}
-	},
-	arrival: '2017-12-26T11:02:00.000+01:00', // ISO 8601 string
-	price: {
-		amount: 150, hint: null
-	}
+	refreshToken: '…',
+	price: {amount: null, hint: 'No pricing information available.'}
 } ]
 ```
 
@@ -240,7 +153,7 @@ The output will be an array of [`journey` objects in the *Friendly Public Transp
 - [db-prices](https://github.com/juliuste/db-prices) – Find the cheapest routes using the DB Sparpreise API.
 - [db-stations](https://github.com/derhuerst/db-stations) – An offline list of all DB stations.
 
-Also check [`hafas-client`'s related libs](https://github.com/public-transport/hafas-client/blob/master/readme.md#related).
+Also check [`hafas-client`'s related libs](https://github.com/public-transport/hafas-client/blob/4/readme.md#related).
 
 
 ## Contributing

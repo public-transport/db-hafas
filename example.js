@@ -13,7 +13,7 @@ hafas.journeys('8011167', '8000261', {results: 1})
 // hafas.departures('8011167', {duration: 1})
 // hafas.locations('Berlin Jungfernheide')
 // hafas.locations('ATZE Musiktheater', {poi: true, addressses: false, fuzzy: false})
-// hafas.station('8089083')
+// hafas.stop('8089083')
 // hafas.nearby(52.4751309, 13.3656537, {results: 1})
 // hafas.radar({
 // 	north: 52.5522,
@@ -22,9 +22,9 @@ hafas.journeys('8011167', '8000261', {results: 1})
 // 	east: 13.3705
 // }, {results: 10})
 
-// .then(([journey]) => {
-// 	const leg = journey.legs[0]
-// 	return hafas.journeyLeg(leg.id, leg.line.name, {polyline: true})
+// .then(({journeys}) => {
+// 	const leg = journeys[0].legs[0]
+// 	return hafas.trip(leg.tripId, leg.line.name, {polyline: true})
 // })
 .then((data) => {
 	console.log(require('util').inspect(data, {depth: null}))

@@ -1,10 +1,11 @@
 'use strict'
 
-const createClientWithRetry = require('hafas-client/retry')
+const createClient = require('hafas-client')
+const withRetrying = require('hafas-client/retry')
 const dbProfile = require('hafas-client/p/db')
 
-const withRetry = (userAgent, retryOpts = {}) => {
-	return createClientWithRetry(dbProfile, userAgent, retryOpts)
+const createRetryingClient = (userAgent, retryOpts = {}) => {
+	return withRetrying(createClient, retryOpts)(dbProfile, userAgent)
 }
 
-module.exports = withRetry
+module.exports = createRetryingClient
