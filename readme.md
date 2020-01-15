@@ -1,4 +1,8 @@
-# db-hafas
+# `db-hafas@4`
+
+**Deprecated. Use [`db-hafas@latest`](https://github.com/derhuerst/db-hafas).**
+
+---
 
 **A client for the German Railways (DB).** It acts as a consistent and straightforward interface on top of a verbose API.
 
