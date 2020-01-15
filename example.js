@@ -5,8 +5,13 @@ const createHafas = require('.')
 // const createHafasWithRetry = require('./retry')
 
 const hafas = createHafas('db-hafas-example')
-// const hafas = createThrottledHafas('db-hafas-example', 5, 100)
-// const hafas = createHafasWithRetry('db-hafas-example', {retries: 2})
+// const hafas = createThrottledHafas('db-hafas example', {
+// 	throttlingLimit: 5,
+// 	throttlingInterval: 10000 // 10s
+// })
+// const hafas = createHafasWithRetry('db-hafas example', {
+// 	retryOpts: {retries: 2}
+// })
 
 // Berlin Jungfernheide to München Hbf
 hafas.journeys('8011167', '8000261', {results: 1})
