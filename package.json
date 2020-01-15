@@ -1,15 +1,16 @@
 {
 	"name": "db-hafas",
 	"description": "JavaScript client for the DB HAFAS API.",
-	"version": "4.0.0",
+	"version": "5.0.0",
 	"main": "index.js",
 	"files": [
 		"index.js",
 		"throttle.js",
-		"retry.js"
+		"retry.js",
+		"example.js"
 	],
 	"author": "Jannis R <mail@jannisr.de>",
-	"homepage": "https://github.com/derhuerst/db-hafas",
+	"homepage": "https://github.com/derhuerst/db-hafas/tree/5",
 	"repository": "derhuerst/db-hafas",
 	"bugs": "https://github.com/derhuerst/db-hafas/issues",
 	"license": "ISC",
@@ -30,7 +31,7 @@
 		"hafas-client": "^5.0.1"
 	},
 	"scripts": {
-		"test": "env NODE_ENV=dev node example.js >/dev/null",
-		"prepublishOnly": "npm test"
+		"smoke-test": "env NODE_ENV=dev node example.js >/dev/null",
+		"prepublishOnly": "npm run smoke-test"
 	}
 }
