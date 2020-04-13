@@ -7,10 +7,9 @@ This project is actually a thin wrapper around [`hafas-client@5`](https://github
 ![db-rest architecture diagram](https://rawgit.com/derhuerst/db-rest/master/architecture.svg)
 
 [![npm version](https://img.shields.io/npm/v/db-hafas.svg)](https://www.npmjs.com/package/db-hafas)
-[![dependency status](https://img.shields.io/david/derhuerst/db-hafas.svg)](https://david-dm.org/derhuerst/db-hafas)
-![ISC-licensed](https://img.shields.io/github/license/derhuerst/db-hafas.svg)
-[![chat on gitter](https://badges.gitter.im/derhuerst.svg)](https://gitter.im/derhuerst)
-[![support me on Patreon](https://img.shields.io/badge/support%20me-on%20patreon-fa7664.svg)](https://patreon.com/derhuerst)
+![ISC-licensed](https://img.shields.io/github/license/public-transport/db-hafas.svg)
+[![chat on gitter](https://badges.gitter.im/public-transport/Lobby.svg)](https://gitter.im/public-transport/Lobby)
+[![support Jannis via GitHub Sponsors](https://img.shields.io/badge/support%20Jannis-donate-fa7664.svg)](https://github.com/sponsors/derhuerst)
 
 
 ## Installing
@@ -158,4 +157,4 @@ Also check [`hafas-client`'s related libs](https://github.com/public-transport/h
 
 ## Contributing
 
-If you **have a question**, **found a bug** or want to **propose a feature**, have a look at [the issues page](https://github.com/derhuerst/db-hafas/issues).
+If you **have a question**, **found a bug** or want to **propose a feature**, have a look at [the issues page](https://github.com/public-transport/db-hafas/issues).

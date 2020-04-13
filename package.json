@@ -1,7 +1,7 @@
 {
 	"name": "db-hafas",
 	"description": "JavaScript client for the DB HAFAS API.",
-	"version": "5.0.1",
+	"version": "5.0.2",
 	"main": "index.js",
 	"files": [
 		"index.js",
@@ -10,19 +10,19 @@
 		"example.js"
 	],
 	"author": "Jannis R <mail@jannisr.de>",
-	"homepage": "https://github.com/derhuerst/db-hafas/tree/5",
-	"repository": "derhuerst/db-hafas",
-	"bugs": "https://github.com/derhuerst/db-hafas/issues",
+	"homepage": "https://github.com/public-transport/db-hafas/tree/5",
+	"repository": "public-transport/db-hafas",
+	"bugs": "https://github.com/public-transport/db-hafas/issues",
 	"license": "ISC",
 	"keywords": [
+		"deutsche bahn",
 		"db",
 		"german",
 		"railway",
 		"public transport",
-		"api",
-		"open data",
+		"transit",
 		"hafas",
-		"http"
+		"hafas-client"
 	],
 	"engines": {
 		"node": ">=10"
