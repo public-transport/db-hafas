@@ -8,8 +8,8 @@ This project is actually a thin wrapper around [`hafas-client@5`](https://github
 
 [![npm version](https://img.shields.io/npm/v/db-hafas.svg)](https://www.npmjs.com/package/db-hafas)
 ![ISC-licensed](https://img.shields.io/github/license/public-transport/db-hafas.svg)
-[![chat on gitter](https://badges.gitter.im/public-transport/Lobby.svg)](https://gitter.im/public-transport/Lobby)
-[![support Jannis via GitHub Sponsors](https://img.shields.io/badge/support%20Jannis-donate-fa7664.svg)](https://github.com/sponsors/derhuerst)
+[![support me via GitHub Sponsors](https://img.shields.io/badge/support%20me-donate-fa7664.svg)](https://github.com/sponsors/derhuerst)
+[![chat with me on Twitter](https://img.shields.io/badge/chat%20with%20me-on%20Twitter-1da1f2.svg)](https://twitter.com/derhuerst)
 
 
 ## Installing
@@ -36,9 +36,10 @@ As an example, we will search for a route from *Berlin Jungfernheide* to *Münch
 
 ```javascript
 // Berlin Jungfernheide to München Hbf
-hafas.journeys('8011167', '8000261', {results: 1})
-.then(({journeys}) => console.log(journeys[0]))
-.catch(console.error)
+const journeys = await hafas.journeys('8011167', '8000261', {
+	results: 1,
+})
+console.log(journeys[0])
 ```
 
 The output will be an array of [`journey` objects in the *Friendly Public Transport Format* `1.2.1` format](https://github.com/public-transport/friendly-public-transport-format/tree/1.2.1/spec#journey):
@@ -152,7 +153,7 @@ The output will be an array of [`journey` objects in the *Friendly Public Transp
 - [db-prices](https://github.com/juliuste/db-prices) – Find the cheapest routes using the DB Sparpreise API.
 - [db-stations](https://github.com/derhuerst/db-stations) – An offline list of all DB stations.
 
-Also check [`hafas-client`'s related libs](https://github.com/public-transport/hafas-client/blob/5/readme.md#related).
+Also check [`hafas-client`'s related projects](https://github.com/public-transport/hafas-client/blob/5/readme.md#related-projects).
 
 
 ## Contributing
