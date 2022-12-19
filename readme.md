@@ -27,9 +27,9 @@ Check [the docs for `hafas-client@5`](https://github.com/public-transport/hafas-
 ## Getting Started
 
 ```javascript
-const createHafas = require('db-hafas')
+import {createDbHafas} from 'db-hafas'
 
-const hafas = createHafas('my-awesome-program')
+const hafas = createDbHafas('my-awesome-program')
 ```
 
 As an example, we will search for a route from *Berlin Jungfernheide* to *München Hbf*. To get the station IDs, use [`locations(query, [opt])`](https://github.com/public-transport/hafas-client/blob/5/docs/locations.md).

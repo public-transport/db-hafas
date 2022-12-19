@@ -1,13 +1,11 @@
-'use strict'
-
-const createClient = require('hafas-client')
-const dbProfile = require('hafas-client/p/db')
+import createClient from 'hafas-client'
+import dbProfile from 'hafas-client/p/db/index.js'
 
 const defaults = {
 	profile: dbProfile,
 }
 
-const createHafas = (userAgent, opt = {}) => {
+const createDbHafas = (userAgent, opt = {}) => {
 	const {
 		profile,
 	} = {...defaults, ...opt}
@@ -15,5 +13,7 @@ const createHafas = (userAgent, opt = {}) => {
 	return createClient(profile, userAgent, opt)
 }
 
-createHafas.defaults = defaults
-module.exports = createHafas
+export {
+	defaults,
+	createDbHafas,
+}

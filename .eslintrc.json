@@ -4,6 +4,9 @@
 		"es2021": true,
 		"node": true
 	},
+	"parserOptions": {
+		"sourceType": "module"
+	},
 	"ignorePatterns": [
 		"node_modules"
 	],

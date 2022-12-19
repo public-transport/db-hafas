@@ -1,8 +1,6 @@
-'use strict'
-
-const createClient = require('hafas-client')
-const withThrottling = require('hafas-client/throttle')
-const dbProfile = require('hafas-client/p/db')
+import createClient from 'hafas-client'
+import withThrottling from 'hafas-client/throttle.js'
+import dbProfile from 'hafas-client/p/db/index.js'
 
 const createThrottledClient = (userAgent, opt = {}) => {
 	const {
@@ -18,4 +16,6 @@ const createThrottledClient = (userAgent, opt = {}) => {
 	return createClient(throttledProfile, userAgent, opt)
 }
 
-module.exports = createThrottledClient
+export {
+	createThrottledClient,
+}

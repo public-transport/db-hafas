@@ -1,15 +1,14 @@
-'use strict'
-
-const createHafas = require('.')
-// const createThrottledHafas = require('./throttle')
-// const createHafasWithRetry = require('./retry')
+import {inspect} from 'node:util'
+import {createDbHafas as createHafas} from './index.js'
+// import {createThrottledClient} from './throttle.js'
+// import {createRetryingClient} from './retry.js'
 
 const hafas = createHafas('db-hafas-example')
-// const hafas = createThrottledHafas('db-hafas example', {
+// const hafas = createThrottledClient('db-hafas example', {
 // 	throttlingLimit: 5,
 // 	throttlingInterval: 10000 // 10s
 // })
-// const hafas = createHafasWithRetry('db-hafas example', {
+// const hafas = createRetryingClient('db-hafas example', {
 // 	retryOpts: {retries: 2}
 // })
 
@@ -33,7 +32,7 @@ hafas.journeys('8011167', '8000261', {results: 1})
 // })
 
 .then((data) => {
-	console.log(require('util').inspect(data, {depth: null, colors: true}))
+	console.log(inspect(data, {depth: null, colors: true}))
 })
 .catch((err) => {
 	console.error(err)
