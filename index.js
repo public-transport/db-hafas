@@ -1,5 +1,5 @@
-import createClient from 'hafas-client'
-import dbProfile from 'hafas-client/p/db/index.js'
+import {createClient} from 'hafas-client'
+import {profile as dbProfile} from 'hafas-client/p/db/index.js'
 
 const defaults = {
 	profile: dbProfile,

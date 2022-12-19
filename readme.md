@@ -2,7 +2,7 @@
 
 **A client for the German Railways (DB).** It acts as a consistent and straightforward interface on top of a verbose API.
 
-This project is actually a thin wrapper around [`hafas-client@5`](https://github.com/public-transport/hafas-client/tree/5#hafas-client). [Its docs](https://github.com/public-transport/hafas-client/tree/5/docs) document the API in general.
+This project is actually a thin wrapper around [`hafas-client@6`](https://github.com/public-transport/hafas-client/blob/6/readme.md). [Its docs](https://github.com/public-transport/hafas-client/blob/6/docs/readme.md) document the API in general.
 
 ![db-rest architecture diagram](https://rawgit.com/derhuerst/db-rest/master/architecture.svg)
 
@@ -21,7 +21,7 @@ npm install db-hafas
 
 ## API
 
-Check [the docs for `hafas-client@5`](https://github.com/public-transport/hafas-client/tree/5/docs) as well as [its DB-specific customisations](https://github.com/public-transport/hafas-client/blob/5/p/db/readme.md).
+Check [the docs for `hafas-client@6`](https://github.com/public-transport/hafas-client/tree/6/docs) as well as [its DB-specific customisations](https://github.com/public-transport/hafas-client/blob/6/p/db/readme.md).
 
 
 ## Getting Started
@@ -32,7 +32,7 @@ import {createDbHafas} from 'db-hafas'
 const hafas = createDbHafas('my-awesome-program')
 ```
 
-As an example, we will search for a route from *Berlin Jungfernheide* to *München Hbf*. To get the station IDs, use [`locations(query, [opt])`](https://github.com/public-transport/hafas-client/blob/5/docs/locations.md).
+As an example, we will search for a route from *Berlin Jungfernheide* to *München Hbf*. To get the station IDs, use [`locations(query, [opt])`](https://github.com/public-transport/hafas-client/blob/6/docs/locations.md).
 
 ```javascript
 // Berlin Jungfernheide to München Hbf
@@ -153,7 +153,7 @@ The output will be an array of [`journey` objects in the *Friendly Public Transp
 - [db-prices](https://github.com/juliuste/db-prices) – Find the cheapest routes using the DB Sparpreise API.
 - [db-stations](https://github.com/derhuerst/db-stations) – An offline list of all DB stations.
 
-Also check [`hafas-client`'s related projects](https://github.com/public-transport/hafas-client/blob/5/readme.md#related-projects).
+Also check [`hafas-client`'s related projects](https://github.com/public-transport/hafas-client/blob/6/readme.md#related-projects).
 
 
 ## Contributing
