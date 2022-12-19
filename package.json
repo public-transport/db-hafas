@@ -1,7 +1,7 @@
 {
 	"name": "db-hafas",
 	"description": "JavaScript client for the DB HAFAS API.",
-	"version": "5.1.0",
+	"version": "6.0.0",
 	"type": "module",
 	"main": "index.js",
 	"files": [
@@ -11,7 +11,7 @@
 		"example.js"
 	],
 	"author": "Jannis R <mail@jannisr.de>",
-	"homepage": "https://github.com/public-transport/db-hafas/tree/5",
+	"homepage": "https://github.com/public-transport/db-hafas/tree/6",
 	"repository": "public-transport/db-hafas",
 	"bugs": "https://github.com/public-transport/db-hafas/issues",
 	"license": "ISC",
