@@ -32,7 +32,7 @@
 		"hafas-client": "^5.0.1"
 	},
 	"devDependencies": {
-		"eslint": "^7.32.0"
+		"eslint": "^8.30.0"
 	},
 	"scripts": {
 		"lint": "eslint .",
