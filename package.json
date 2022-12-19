@@ -30,7 +30,11 @@
 	"dependencies": {
 		"hafas-client": "^5.0.1"
 	},
+	"devDependencies": {
+		"eslint": "^7.32.0"
+	},
 	"scripts": {
+		"lint": "eslint .",
 		"smoke-test": "env NODE_ENV=dev node example.js >/dev/null",
 		"prepublishOnly": "npm run smoke-test"
 	}
