@@ -4,6 +4,10 @@
 
 This project is actually a thin wrapper around [`hafas-client@6`](https://github.com/public-transport/hafas-client/blob/6/readme.md). [Its docs](https://github.com/public-transport/hafas-client/blob/6/docs/readme.md) document the API in general.
 
+> [!IMPORTANT]
+> The [DB HAFAS API is currently not available](https://github.com/public-transport/hafas-client/issues/331), and it seems like it has been shut off permanently.
+> We **recommend using [`db-vendo-client`](https://github.com/public-transport/db-vendo-client)** as a replacement. It covers most of the use cases served by `hafas-client`, but [the underlying APIs seem to have a **much lower rate limit**](https://github.com/public-transport/db-vendo-client/issues/10). ⚠️
+
 [![npm version](https://img.shields.io/npm/v/db-hafas.svg)](https://www.npmjs.com/package/db-hafas)
 ![ISC-licensed](https://img.shields.io/github/license/public-transport/db-hafas.svg)
 [![support me via GitHub Sponsors](https://img.shields.io/badge/support%20me-donate-fa7664.svg)](https://github.com/sponsors/derhuerst)
